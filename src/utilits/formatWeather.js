@@ -29,7 +29,7 @@ export const formatCoord = (value) => {
   @param {number} timezoneOffsetSec
  */
 
-  export const formatTime = (timestamp, timezoneOffsetSec = 0) => {
+export const formatTime = (timestamp, timezoneOffsetSec = 0) => {
   if (timestamp == null) return "-";
   const date = new Date((timestamp + timezoneOffsetSec) * 1000);
   return date.toLocaleTimeString("uk-UA", {
@@ -37,4 +37,9 @@ export const formatCoord = (value) => {
     minute: "2-digit",
     timeZone: "UTC",
   });
+};
+
+export const formatTemperature = (celsius) => {
+  if (celsius == null) return "-";
+  return `${Math.round(celsius)}°C`;
 };

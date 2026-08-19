@@ -11,6 +11,7 @@ import {
   formatClouds,
   formatCoord,
   formatTime,
+  formatTemperature,
 } from "../../../utilits/formatWeather";
 import "./InfoPanel.css";
 
@@ -40,9 +41,12 @@ export const Weatherinfo = () => {
     <div className="infoBox">
       <div className="InfoBlock">
         <p>{city || "Введіть назву міста.."}</p>
-        {error && (
-          <p className="error">Місто не знайдено</p>
-        )}
+        {error && <p className="error">Місто не знайдено</p>}
+
+        <p>Температура: {formatTemperature(weatherData?.main?.temp)}</p>
+        <p>
+          Відчувається як: {formatTemperature(weatherData?.main?.feels_like)}
+        </p>
         <p>Видимість: {formatVisibility(weatherData?.visibility)}</p>
         <p>Вологість: {formatHumidity(weatherData?.main?.humidity)}</p>
         <p>
