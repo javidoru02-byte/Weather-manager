@@ -5,6 +5,7 @@ import {
   getWeather,
   getFiveDayWeather,
 } from "../../../store/slices/weatherSlice";
+import { addFavourite } from "../../../store/slices/favouritesSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Buttons() {
@@ -18,24 +19,27 @@ function Buttons() {
     const { value } = e.target;
     setCityName(value);
   }
-
   function onClick() {
     dispatch(getWeather(cityName));
-    console.log(weather);
   }
 
   function onFiveDayClick() {
     dispatch(getFiveDayWeather(cityName));
   }
 
-  function onFavouriteClick() {}
+  function onFavouriteClick() {
+    console.log(weather);
+    dispatch(addFavourite(weather));
+  }
 
   return (
     <>
       <input name="input" type="text" onChange={onInputChange} />
       <button onClick={onClick}>Погода на сьогодні</button>
       <button onClick={onFiveDayClick}>Погода на 5 днів</button>
-      <button onClick={onFavouriteClick}>Додати до фаворитів</button>
+      {weather && (
+        <button onClick={onFavouriteClick}>Додати до фаворитів</button>
+      )}
     </>
   );
 }
