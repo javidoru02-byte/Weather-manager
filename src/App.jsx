@@ -1,7 +1,7 @@
 import "./App.css";
-import Weatherinfo from "./components/main/infopanel/InfoPanel";
+import Main from "./components/main/main/Main";
 function App() {
-  return <Weatherinfo />;
+  return <Main />;
 }
 
 export default App;
