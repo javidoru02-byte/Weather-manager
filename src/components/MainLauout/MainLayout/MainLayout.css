@@ -1,0 +1,14 @@
+.mainLayout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+.mainLayoutLeft,
+.mainLayoutRight {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

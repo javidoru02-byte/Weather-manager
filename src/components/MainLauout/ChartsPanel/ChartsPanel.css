@@ -1,0 +1,6 @@
+.chartsPanel {
+  border: 2px solid black;
+  flex: 1;
+  min-height: 300px;
+  padding: 16px;
+}

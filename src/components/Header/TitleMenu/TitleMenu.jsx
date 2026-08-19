@@ -1,0 +1,66 @@
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#f7f6f8',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  fontSize: '17px',
+  fontWeight: '600',
+  color: theme.vars
+    ? theme.vars.palette.text.primary
+    : theme.palette.text.primary,
+  transition: '0.2s',
+
+  '&:hover': {
+    backgroundColor: '#e3f2fd',
+    transform: 'scale(1.02)',
+    cursor: 'pointer',
+  },
+  
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#000000',
+  }),
+}));
+
+function TitleMenu() {
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Stack 
+        direction="row" 
+        spacing={2} 
+        sx={{ width: '100%' }}
+      >
+        <Item sx={{ flex: 1 }}>Головна</Item>
+        <Item sx={{ flex: 1 }}>Обране</Item>
+      </Stack>
+    </Box>
+
+    //   <Stack 
+    //     direction="row" 
+    //     justifyContent='center'
+    //     spacing={10} 
+    //   >
+    //     <Button
+        
+    //     variant='contained'
+    //     >
+    //         Головна
+    //     </Button>
+    //     <Button
+        
+    //     variant='contained'
+    //     >
+    //         Обране
+    //     </Button>
+    //   </Stack>
+
+
+  );
+}
+
+export default TitleMenu;

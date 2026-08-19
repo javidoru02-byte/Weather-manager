@@ -1,0 +1,13 @@
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buttons button {
+  border: 2px solid black;
+  padding: 24px;
+  background: none;
+  cursor: pointer;
+  color: black;
+}
