@@ -4,6 +4,7 @@ import { weatherApi } from "../../api/favourites";
 
 const initialState = {
   weather: null,
+  weather5Day: null,
   isFetching: false,
   error: null,
 };
@@ -78,7 +79,7 @@ const weatherSlice = createSlice({
       .addCase(getFiveDayWeather.fulfilled, (state, { payload }) => {
         state.isFetching = false;
         state.error = null;
-        state.weather = payload;
+        state.weather5Day = payload;
       })
       .addCase(getFiveDayWeather.rejected, setError);
   },

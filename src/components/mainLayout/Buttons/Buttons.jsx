@@ -21,14 +21,10 @@ function Buttons() {
   }
   function onClick() {
     dispatch(getWeather(cityName));
-  }
-
-  function onFiveDayClick() {
     dispatch(getFiveDayWeather(cityName));
   }
 
   function onFavouriteClick() {
-    console.log(weather);
     dispatch(addFavourite(weather));
   }
 
@@ -36,7 +32,6 @@ function Buttons() {
     <>
       <input name="input" type="text" onChange={onInputChange} />
       <button onClick={onClick}>Погода на сьогодні</button>
-      <button onClick={onFiveDayClick}>Погода на 5 днів</button>
       {weather && (
         <button onClick={onFavouriteClick}>Додати до фаворитів</button>
       )}
