@@ -1,10 +1,26 @@
+import { NavLink } from "react-router-dom";
 import "./titleMenu.css";
 
 function TitleMenu() {
   return (
-    <div className="titleMenu">
-      <button className="titleMenuButton"></button>
-    </div>
+    <nav className="titleMenu">
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive ? "titleMenuButton active" : "titleMenuButton"
+        }
+      >
+        головна
+      </NavLink>
+      <NavLink
+        to="/favourites"
+        className={({ isActive }) =>
+          isActive ? "titleMenuButton active" : "titleMenuButton"
+        }
+      >
+        обране
+      </NavLink>
+    </nav>
   );
 }
 

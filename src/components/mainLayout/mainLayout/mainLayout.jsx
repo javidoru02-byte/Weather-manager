@@ -1,6 +1,6 @@
 import InfoPanel from "../infoPanel/infoPanel";
 import ChartsPanel from "../chartsPanel/chartsPanel";
-import Buttons from "../buttons/buttons";
+import Buttons from "../Buttons/Buttons";
 import "./mainLayout.css";
 
 function MainLayout() {
