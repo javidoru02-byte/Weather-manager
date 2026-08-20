@@ -2,7 +2,6 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#f7f6f8',
@@ -39,26 +38,7 @@ function TitleMenu() {
         <Item sx={{ flex: 1 }}>Обране</Item>
       </Stack>
     </Box>
-
-    //   <Stack 
-    //     direction="row" 
-    //     justifyContent='center'
-    //     spacing={10} 
-    //   >
-    //     <Button
-        
-    //     variant='contained'
-    //     >
-    //         Головна
-    //     </Button>
-    //     <Button
-        
-    //     variant='contained'
-    //     >
-    //         Обране
-    //     </Button>
-    //   </Stack>
-
+   
 
   );
 }

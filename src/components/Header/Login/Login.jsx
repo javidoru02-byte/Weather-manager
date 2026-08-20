@@ -1,16 +1,19 @@
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { IconButton } from '@mui/material'; 
+
 import './Login.css';
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import { Button } from '@mui/material';
 
 function Login() {
   return (
-      <Button
-      startIcon={<LoginOutlinedIcon />}
-      >
-        авторизація
-      </Button>
+      <IconButton color="inherit">
+        <AccountCircleIcon sx={{ fontSize: '40px' }} />
+      </IconButton>
 
   );
 }
 
 export default Login;
+
+
+
+
