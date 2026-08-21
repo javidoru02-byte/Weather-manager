@@ -15,10 +15,6 @@ export const getFavourites = createAsyncThunk(
     try {
       const response = await jsonApi.get(`/${FAVOURITES_SLICE_NAME}`);
 
-      if (response.status >= 400) {
-        throw new Error(`Error status is ${response.status}`);
-      }
-
       const { data } = response;
       return data;
     } catch (error) {
@@ -42,10 +38,6 @@ export const addFavourite = createAsyncThunk(
         `/${FAVOURITES_SLICE_NAME}`,
         favourite,
       );
-
-      if (response.status >= 400) {
-        throw new Error(`Error status is ${response.status}`);
-      }
 
       const { data } = response;
       return data;

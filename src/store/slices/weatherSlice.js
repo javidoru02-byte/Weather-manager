@@ -16,12 +16,9 @@ export const getWeather = createAsyncThunk(
       const response = await weatherApi.get("/weather", {
         params: {
           q: city,
+          units: "metric",
         },
       });
-
-      if (response.status >= 400) {
-        throw new Error(`Error status is ${response.status}`);
-      }
 
       const { data } = response;
       return data;
@@ -38,12 +35,9 @@ export const getFiveDayWeather = createAsyncThunk(
       const response = await weatherApi.get("/forecast", {
         params: {
           q: city,
+          units: "metric",
         },
       });
-
-      if (response.status >= 400) {
-        throw new Error(`Error status is ${response.status}`);
-      }
 
       const { data } = response;
       return data;
