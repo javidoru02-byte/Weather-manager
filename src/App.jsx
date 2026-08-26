@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Header from "./components/Header/Header/Header";
-import MainLayout from "./components/MainLauout/MainLayout/MainLayout";
+import MainLayout from "./components/MainLayout/Main/Main";
 import Footer from "./components/Footer/Footer";
 import FavouritesList from "./components/Header/FavouritesList/FavouritesList";
 import AuthPage from "./components/auth/authPage";

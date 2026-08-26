@@ -1,46 +1,40 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { WEATHER_SLICE_NAME } from "../../constants/constants";
-import { weatherApi } from "../../api/favourites";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { apiForToday, forecastApi, apiKey } from "../../constants/WeatherApi";
 
 const initialState = {
-  weather: null,
-  weather5Day: null,
-  isFetching: false,
+  weatherData: null,
+  forecastData: null,
+  loading: false,
   error: null,
 };
 
 export const getWeather = createAsyncThunk(
-  `${WEATHER_SLICE_NAME}/getWeather`,
-  async (city, { rejectWithValue }) => {
-    try {
-      const response = await weatherApi.get("/weather", {
-        params: {
-          q: city,
-          units: "metric",
-        },
-      });
+  "weather/getWeather",
 
-      const { data } = response;
-      return data;
+  async function (city, { rejectWithValue }) {
+    try {
+      const forToday = await axios.get(
+        `${apiForToday}?q=${city}&appid=${apiKey}&units=metric`,
+      );
+
+      return forToday.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   },
 );
 
-export const getFiveDayWeather = createAsyncThunk(
-  `${WEATHER_SLICE_NAME}/getFiveDayWeather`,
-  async (city, { rejectWithValue }) => {
-    try {
-      const response = await weatherApi.get("/forecast", {
-        params: {
-          q: city,
-          units: "metric",
-        },
-      });
+export const getWeatherForFiveDays = createAsyncThunk(
+  "weather/getWeatherForFiveDays",
 
-      const { data } = response;
-      return data;
+  async function (city, { rejectWithValue }) {
+    try {
+      const forFiveDays = await axios.get(
+        `${forecastApi}?q=${city}&appid=${apiKey}&units=metric`,
+      );
+
+      return forFiveDays.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -48,34 +42,36 @@ export const getFiveDayWeather = createAsyncThunk(
 );
 
 const setError = (state, action) => {
-  state.isFetching = false;
   state.error = action.payload;
+  state.loading = false;
 };
 
-const setFetching = (state) => {
-  state.isFetching = true;
+const setLoading = (state) => {
+  state.loading = true;
   state.error = null;
 };
-
 const weatherSlice = createSlice({
-  name: WEATHER_SLICE_NAME,
+  name: `weather`,
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(getWeather.pending, setFetching)
-      .addCase(getWeather.fulfilled, (state, { payload }) => {
-        state.isFetching = false;
-        state.error = null;
-        state.weather = payload;
-      })
-      .addCase(getWeather.rejected, setError)
-      .addCase(getFiveDayWeather.pending, setFetching)
-      .addCase(getFiveDayWeather.fulfilled, (state, { payload }) => {
-        state.isFetching = false;
-        state.error = null;
-        state.weather5Day = payload;
-      })
-      .addCase(getFiveDayWeather.rejected, setError);
+    builder.addCase(getWeather.fulfilled, (state, { payload }) => {
+      state.weatherData = payload;
+      state.loading = false;
+      state.error = null;
+    });
+
+    builder.addCase(getWeather.rejected, setError);
+    builder.addCase(getWeather.pending, setLoading);
+
+    builder.addCase(getWeatherForFiveDays.fulfilled, (state, { payload }) => {
+      state.forecastData = payload;
+      state.loading = false;
+      state.error = null;
+    });
+
+    builder.addCase(getWeatherForFiveDays.rejected, setError);
+    builder.addCase(getWeatherForFiveDays.pending, setLoading);
   },
 });
 
