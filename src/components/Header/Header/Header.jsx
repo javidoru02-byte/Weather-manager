@@ -1,6 +1,6 @@
-import TitleMenu from '../titleMenu/titleMenu';
-import Login from '../login/login';
-import './header.css';
+import TitleMenu from '../TitleMenu/TitleMenu';
+import Login from '../Login/Login';
+import './Header.css';
 
 function Header() {
   return (

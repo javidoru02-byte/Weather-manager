@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/header/header/header";
-import MainLayout from "./components/mainLayout/mainLayout/mainLayout";
-import Footer from "./components/footer/footer";
-import FavouritesList from "./components/header/favouritesList/FavouritesList";
+import Header from "./components/Header/Header/Header";
+import MainLayout from "./components/MainLauout/MainLayout/MainLayout";
+import Footer from "./components/Footer/Footer";
+import FavouritesList from "./components/Header/FavouritesList/FavouritesList";
 import AuthPage from "./components/auth/authPage";
 import "./App.css";
 

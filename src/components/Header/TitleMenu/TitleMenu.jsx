@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import "./titleMenu.css";
+import "./TitleMenu.css";
 
 function TitleMenu() {
   return (

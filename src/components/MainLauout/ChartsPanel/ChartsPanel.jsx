@@ -1,4 +1,4 @@
-import "./chartsPanel.css";
+import "./ChartsPanel.css";
 
 function ChartsPanel() {
   return (

@@ -1,4 +1,4 @@
-import './infoPanel.css';
+import './InfoPanel.css';
 
 function InfoPanel() {
   return (

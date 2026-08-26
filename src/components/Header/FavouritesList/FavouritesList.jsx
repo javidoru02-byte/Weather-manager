@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
 
-import FavouriteItem from "../favouriteItem/FavouriteItem";
+import FavouriteItem from "../FavouriteItem/FavouriteItem";
 
 import { getFavourites } from "../../../store/slices/favouritesSlice";
 
