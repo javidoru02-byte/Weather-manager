@@ -5,6 +5,12 @@
       "id": "C8ttacktkmI",
       "lat": 48.8534,
       "lon": 2.3488
+    },
+    {
+      "name": "Kyiv",
+      "id": "3fhAexEAY6Q",
+      "lat": 50.4501,
+      "lon": 30.5241
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

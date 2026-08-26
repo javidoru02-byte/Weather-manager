@@ -3,3 +3,43 @@
   padding: 16px;
   text-align: center;
 }
+
+.footerTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.footerTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.footerAuthors {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.footerAuthor {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #333;
+}
+
+.footerAuthor:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+.footerBottom {
+  margin-top: 16px;
+  color: #999;
+}
