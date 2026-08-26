@@ -43,3 +43,8 @@ export const formatTemperature = (celsius) => {
   if (celsius == null) return "-";
   return `${Math.round(celsius)}°C`;
 };
+
+export const formatCityLabel = (city) => {
+  if (!city) return "";
+  return [city.name, city.state, city.country].filter(Boolean).join(", ");
+};

@@ -7,3 +7,4 @@ export const forecastApi = new URL(
 );
 
 export const apiKey = "c59fdb9999182f973abb90099bb180ec";
+export const geoApi = "https://api.openweathermap.org/geo/1.0/direct";

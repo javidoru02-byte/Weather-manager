@@ -1,12 +1,24 @@
-import "./Main.css";
+import { ThemeProvider, CssBaseline, Stack } from "@mui/material";
+import theme from "../../../theme";
 import Weatherinfo from "../infopanel/InfoPanel";
-import Chart from "../chartpanel/Chartpanel";
+import ChartsPanel from "../chartpanel/Chartpanel";
+
 function Main() {
   return (
-    <div>
-      <Weatherinfo />
-      <Chart />
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Stack
+        spacing={3}
+        sx={{
+          minHeight: "100vh",
+          p: { xs: 2, sm: 4 },
+          bgcolor: "background.default",
+        }}
+      >
+        <Weatherinfo />
+        <ChartsPanel />
+      </Stack>
+    </ThemeProvider>
   );
 }
 
