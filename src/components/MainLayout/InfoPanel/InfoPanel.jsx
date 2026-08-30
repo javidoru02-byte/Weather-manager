@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { Paper, Stack, Typography, Divider } from "@mui/material";
 import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
 import {
@@ -17,6 +18,7 @@ import WeatherStats from "./WeatherStats";
 const SEARCH_DEBOUNCE_MS = 1500;
 
 export const Weatherinfo = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const [inputValue, setInputValue] = useState("");
@@ -73,7 +75,7 @@ export const Weatherinfo = () => {
         <Stack direction="row" spacing={1} alignItems="center">
           <PlaceRoundedIcon sx={{ color: "primary.main" }} fontSize="small" />
           <Typography variant="overline" color="text.secondary">
-            Погодна станція
+            {t("search.weatherStation")}
           </Typography>
         </Stack>
 
@@ -94,7 +96,7 @@ export const Weatherinfo = () => {
             : "--°"}
         </Typography>
         <Typography variant="h6" color="text.secondary" noWrap>
-          {city || "Введіть назву міста"}
+          {city || t("search.cityPlaceholder")}
         </Typography>
       </Stack>
 

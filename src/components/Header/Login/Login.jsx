@@ -19,5 +19,5 @@ function Login() {
     </div>
   );
 }
-
+// поки що ніде не використовується, у Header.jsx є фукнціонал, поки залишу, вдруг будемо шось змінювати (Kiril) 
 export default Login;

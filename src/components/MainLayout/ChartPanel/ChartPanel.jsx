@@ -5,11 +5,14 @@ import { Paper, Box, Stack, Typography } from "@mui/material";
 import ShowChartRoundedIcon from "@mui/icons-material/ShowChartRounded";
 import { sortTemperatureForFiveDays } from "../../../utilits/sortWeather";
 import { buildTemperatureChartConfig } from "./ChartTheme";
+import { useTranslation } from "react-i18next";
 
 function ChartsPanel() {
+  const { t, i18n } = useTranslation();
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
   const forecastData = useSelector((state) => state.weather.forecastData);
+  
 
   useEffect(() => {
     if (!forecastData) return undefined;
@@ -21,11 +24,11 @@ function ChartsPanel() {
     chartInstanceRef.current?.destroy();
     chartInstanceRef.current = new Chart(
       chartRef.current,
-      buildTemperatureChartConfig(labels, temps)
+      buildTemperatureChartConfig(labels, temps, t)
     );
 
     return () => chartInstanceRef.current?.destroy();
-  }, [forecastData]);
+  }, [forecastData, t, i18n.language]);
 
   return (
     <Paper
@@ -35,7 +38,7 @@ function ChartsPanel() {
       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
         <ShowChartRoundedIcon sx={{ color: "primary.main" }} fontSize="small" />
         <Typography variant="overline" color="text.secondary">
-          Прогноз на 5 днів
+          {t("forecast.fiveDaysTitle")}
         </Typography>
       </Stack>
       <Box sx={{ height: { xs: 260, sm: 340 } }}>

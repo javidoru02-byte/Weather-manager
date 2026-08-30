@@ -1,0 +1,53 @@
+{
+  "header": {
+    "home": "Головна",
+    "favourites": "Обране",
+    "profile": "Профіль",
+    "auth": "Авторизація / Вихід"
+  },
+  "search": {
+    "weatherStation": "Погодна станція",
+    "cityPlaceholder": "Введіть назву міста",
+    "searchPlaceholder": "Пошук міста...",
+    "cityNotFound": "Місто не знайдено"
+  },
+  "footer": {
+    "team": "Над проєктом працювали:",
+    "rights": "Weather Manager. Навчальний проєкт."
+  },
+  "stats": {
+    "feelsLike": "Відчувається як",
+    "visibility": "Видимість",
+    "humidity": "Вологість",
+    "wind": "Вітер",
+    "clouds": "Хмарність",
+    "sunrise": "Схід сонця",
+    "sunset": "Захід сонця",
+    "coordinates": "Координати"
+  },
+  "forecast": {
+    "fiveDaysTitle": "Прогноз на 5 днів",
+    "tempLabel": "Температура (°C)"
+  },
+  "buttons": {
+    "cityPlaceholder": "Введіть місто...",
+    "today": "Погода на сьогодні",
+    "tomorrow": "на завтра",
+    "selectRange": "обрати діапазон",
+    "addToFavourites": "Додати до фаворитів"
+  },
+  "favourites": {
+    "deleteTooltip": "Видалити з обраного"
+  },
+  "profile": {
+    "greeting": "Привіт",
+    "logout": "Вийти"
+  },
+  "auth": {
+    "title": "Реєстрація",
+    "namePlaceholder": "Ім'я користувача",
+    "emailPlaceholder": "Електронна пошта",
+    "passwordPlaceholder": "Пароль",
+    "submitButton": "ЗАРЕЄСТРУВАТИСЯ ТА УВІЙТИ"
+  }
+}

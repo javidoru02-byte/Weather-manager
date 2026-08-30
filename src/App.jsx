@@ -7,6 +7,7 @@ import MainLayout from "./components/MainLayout/Main/Main";
 import Footer from "./components/Footer/Footer";
 import FavouritesList from "./components/Header/FavouritesList/FavouritesList";
 import AuthPage from "./components/auth/authPage";
+import UserProfile from "./components/Header/UserProfile/UserProfile";
 
 import "./App.css";
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<MainLayout />} />
             <Route path="/favourites" element={<FavouritesList />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </main>
         <Footer />

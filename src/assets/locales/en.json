@@ -1,0 +1,53 @@
+{
+  "header": {
+    "home": "Home",
+    "favourites": "Favourites",
+    "profile": "Profile",
+    "auth": "Sign In / Logout"
+  },
+  "search": {
+    "weatherStation": "Weather Station",
+    "cityPlaceholder": "Enter city name",
+    "searchPlaceholder": "Search city...",
+    "cityNotFound": "City not found"
+  },
+  "footer": {
+    "team": "Project contributors:",
+    "rights": "Weather Manager. Educational project."
+  },
+  "stats": {
+    "feelsLike": "Feels like",
+    "visibility": "Visibility",
+    "humidity": "Humidity",
+    "wind": "Wind",
+    "clouds": "Cloudiness",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "coordinates": "Coordinates"
+  },
+  "forecast": {
+    "fiveDaysTitle": "5-Day Forecast",
+    "tempLabel": "Temperature (°C)"
+  },
+  "buttons": {
+    "cityPlaceholder": "Enter city name...",
+    "today": "Today's Weather",
+    "tomorrow": "Tomorrow",
+    "selectRange": "Select Range",
+    "addToFavourites": "Add to Favourites"
+  },
+  "favourites": {
+    "deleteTooltip": "Remove from favourites"
+  },
+  "profile": {
+    "greeting": "Hello",
+    "logout": "Log out"
+  },
+  "auth": {
+    "title": "Registration",
+    "namePlaceholder": "Username",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "submitButton": "REGISTER AND LOG IN"
+  }
+}

@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import { useTranslation } from "react-i18next";
 import { formatCityLabel } from "../../../utilits/formatWeather";
 
 const isSameCity = (option, value) =>
@@ -31,6 +32,7 @@ const buildInputSlotProps = (params, isLoading) => ({
 });
 
 function CitySearch({ inputValue, onInputChange, onCitySelect, suggestions, isLoading, error }) {
+  const { t } = useTranslation();
   return (
     <Stack spacing={1}>
       <Autocomplete
@@ -66,7 +68,7 @@ function CitySearch({ inputValue, onInputChange, onCitySelect, suggestions, isLo
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder="Введіть назву міста..."
+            placeholder={t("search.searchPlaceholder")}
             variant="outlined"
             slotProps={{
               ...params.slotProps,
@@ -78,7 +80,7 @@ function CitySearch({ inputValue, onInputChange, onCitySelect, suggestions, isLo
 
       {error && (
         <Typography variant="body2" color="error">
-          Місто не знайдено
+          {t("search.cityNotFound")}
         </Typography>
       )}
     </Stack>

@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./authPage.css";
 
 function AuthPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   function onSubmit(e) {
@@ -12,12 +14,12 @@ function AuthPage() {
   return (
     <div className="authPage">
       <div className="authCard">
-        <h2>Реєстрація</h2>
+        <h2>{t("auth.title")}</h2>
         <form onSubmit={onSubmit}>
-          <input type="text"/>
-          <input type="email"/>
-          <input type="password"/>
-          <button type="submit">ЗАРЕЄСТРУВАТИСЯ ТА УВІЙТИ</button>
+          <input type="text" placeholder={t("auth.namePlaceholder")}/>
+          <input type="email" placeholder={t("auth.emailPlaceholder")}/>
+          <input type="password" placeholder={t("auth.passwordPlaceholder")}/>
+          <button type="submit">{t("auth.submitButton")}</button>
         </form>
       </div>
     </div>

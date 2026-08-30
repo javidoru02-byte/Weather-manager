@@ -1,3 +1,4 @@
+
 export const CHART_COLORS = {
   accent: "#00D1D1",
   textMuted: "rgba(231, 241, 243, 0.72)",
@@ -5,7 +6,7 @@ export const CHART_COLORS = {
   tooltipBg: "#111C2E",
 };
 
-export function buildTemperatureChartConfig(labels, temperatures) {
+export function buildTemperatureChartConfig(labels, temperatures, t) {
   const { accent, textMuted, gridLine, tooltipBg } = CHART_COLORS;
 
   return {
@@ -14,7 +15,7 @@ export function buildTemperatureChartConfig(labels, temperatures) {
       labels,
       datasets: [
         {
-          label: "Температура (°C)",
+          label: t("forecast.tempLabel"),
           data: temperatures,
           borderColor: accent,
           backgroundColor: "rgba(0, 209, 209, 0.15)",

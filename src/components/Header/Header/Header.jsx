@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 import { NavLink, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,16 +17,18 @@ import MenuItem from "@mui/material/MenuItem";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 
 const pages = [
-  { title: "Головна", path: "/" },
-  { title: "Обране", path: "/favourites" },
+  { key: "header.home", path: "/" },
+  { key: "header.favourites", path: "/favourites" },
 ];
 
 const settings = [
-  { title: "Профіль", path: "/profile" },
-  { title: "Авторизація / Вийти", path: "/auth" },
+  { key: "header.profile", path: "/profile" },
+  { key: "header.auth", path: "/auth" },
 ];
 
 function Header() {
+  const { t } = useTranslation();
+  
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
@@ -108,11 +112,11 @@ function Header() {
             >
               {pages.map((page) => (
                 <MenuItem
-                  key={page.title}
+                  key={page.key}
                   onClick={() => handleMenuItemClick(page.path)}
                 >
                   <Typography sx={{ textAlign: "center" }}>
-                    {page.title}
+                    {t(page.key)}
                   </Typography>
                 </MenuItem>
               ))}
@@ -144,7 +148,7 @@ function Header() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page.title}
+                key={t(page.key)}
                 component={NavLink}
                 to={page.path}
                 onClick={handleCloseNavMenu}
@@ -155,14 +159,14 @@ function Header() {
                   "&.active": { fontWeight: "bold", textDecoration: "underline" },
                 }}
               >
-                {page.title}
+                {t(page.key)}
               </Button>
             ))}
           </Box>
 
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Профіль">
+            <Tooltip title={t("header.profile")}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="User Profile" />
               </IconButton>
@@ -185,16 +189,18 @@ function Header() {
             >
               {settings.map((setting) => (
                 <MenuItem
-                  key={setting.title}
+                  key={setting.key}
                   onClick={() => handleUserSettingClick(setting.path)}
                 >
                   <Typography sx={{ textAlign: "center" }}>
-                    {setting.title}
+                    {t(setting.key)}
                   </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+
+          <LanguageSwitcher />    
         </Toolbar>
       </Container>
     </AppBar>

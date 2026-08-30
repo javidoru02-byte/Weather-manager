@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import "./Footer.css";
 
 const authors = [
@@ -8,10 +9,11 @@ const authors = [
 ];
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="footer">
       <div className="footerTop">
-        <span className="footerTitle">Над проєктом працювали:</span>
+        <span className="footerTitle">{t("footer.team")}</span>
         <div className="footerAuthors">
           {authors.map((author, index) => (
             <a
@@ -36,7 +38,7 @@ function Footer() {
         </div>
       </div>
       <div className="footerBottom">
-        <span>© {new Date().getFullYear()} Weather Manager. Навчальний проєкт.</span>
+        <span>© {new Date().getFullYear()} {t("footer.rights")}</span>
       </div>
     </footer>
   );

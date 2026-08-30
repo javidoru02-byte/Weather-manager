@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./UserProfile.css";
 
 function UserProfile() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   function onLogout() {
@@ -10,8 +12,8 @@ function UserProfile() {
 
   return (
     <div className="userProfile">
-      <span>привіт</span>
-      <button onClick={onLogout} title="Вийти">вийти</button>
+      <span>{t("profile.greeting")}</span>
+      <button onClick={onLogout} title={t("profile.logout")}>{t("profile.logout")}</button>
     </div>
   );
 }

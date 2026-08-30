@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Grid, Stack, Box, Typography } from "@mui/material";
 import ThermostatRoundedIcon from "@mui/icons-material/ThermostatRounded";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
@@ -19,6 +20,7 @@ import {
 } from "../../../utilits/formatWeather";
 
 function WeatherStats({ weatherData, timezoneOffset }) {
+  const { t } = useTranslation();
   const stats = useMemo(() => {
     if (!weatherData) return [];
 
@@ -28,46 +30,46 @@ function WeatherStats({ weatherData, timezoneOffset }) {
     return [
       {
         icon: <ThermostatRoundedIcon fontSize="small" />,
-        label: "Відчувається як",
+        label: t("stats.feelsLike"),
         value: formatTemperature(weatherData?.main?.feels_like) ?? "—",
       },
       {
         icon: <VisibilityRoundedIcon fontSize="small" />,
-        label: "Видимість",
+        label: t("stats.visibility"),
         value: formatVisibility(weatherData?.visibility) ?? "—",
       },
       {
         icon: <WaterDropRoundedIcon fontSize="small" />,
-        label: "Вологість",
+        label: t("stats.humidity"),
         value: formatHumidity(weatherData?.main?.humidity) ?? "—",
       },
       {
         icon: <AirRoundedIcon fontSize="small" />,
-        label: "Вітер",
+        label: t("stats.wind"),
         value: formatWind(weatherData?.wind?.speed) ?? "—",
       },
       {
         icon: <CloudRoundedIcon fontSize="small" />,
-        label: "Хмарність",
+        label: t("stats.clouds"),
         value: formatClouds(weatherData?.clouds?.all) ?? "—",
       },
       {
         icon: <WbTwilightRoundedIcon fontSize="small" />,
-        label: "Схід сонця",
+        label: t("stats.sunrise"),
         value: formatTime(weatherData?.sys?.sunrise, timezoneOffset) ?? "—",
       },
       {
         icon: <NightsStayRoundedIcon fontSize="small" />,
-        label: "Захід сонця",
+        label: t("stats.sunset"),
         value: formatTime(weatherData?.sys?.sunset, timezoneOffset) ?? "—",
       },
       {
         icon: <ExploreRoundedIcon fontSize="small" />,
-        label: "Координати",
+        label: t("stats.coordinates"),
         value: lat && lon ? `${lat}, ${lon}` : "—",
       },
     ];
-  }, [weatherData, timezoneOffset]);
+  }, [weatherData, timezoneOffset, t]);
 
   return (
     <Grid container spacing={2}>
