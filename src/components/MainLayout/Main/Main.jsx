@@ -10,7 +10,6 @@ function Main() {
       <Stack
         spacing={3}
         sx={{
-          minHeight: "100vh",
           p: { xs: 2, sm: 4 },
           bgcolor: "background.default",
         }}
