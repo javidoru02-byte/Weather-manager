@@ -2,6 +2,7 @@ import { ThemeProvider, CssBaseline, Stack } from "@mui/material";
 import theme from "../../../theme";
 import Weatherinfo from "../InfoPanel/InfoPanel";
 import ChartsPanel from "../ChartPanel/ChartPanel";
+import DailyForecast from "../DailyForecast/DailyForecast";
 
 function Main() {
   return (
@@ -16,6 +17,7 @@ function Main() {
       >
         <Weatherinfo />
         <ChartsPanel />
+        <DailyForecast />
       </Stack>
     </ThemeProvider>
   );
