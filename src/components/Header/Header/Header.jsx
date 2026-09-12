@@ -14,7 +14,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
 
 const pages = [
   { key: "header.home", path: "/" },
@@ -63,7 +62,19 @@ function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
 
-          <WbSunnyIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Box
+            component="img"
+            src="/favicon.jpg"
+            alt="Weather"
+            sx={{
+              display: { xs: "none", md: "flex" },
+               width: 40,
+               height: 40,
+               objectFit: "contain",
+                mr: 1,
+            }}
+          />
+
           <Typography
             variant="h6"
             noWrap
@@ -123,8 +134,19 @@ function Header() {
             </Menu>
           </Box>
 
+          <Box
+           component="img"
+           src="/favicon.jpg"
+           alt="Weather"
+           sx={{
+             display: { xs: "flex", md: "none" },
+             width: 40,
+             height: 40,
+             objectFit: "contain",
+             mr: 1,
+             }}
+          />
 
-          <WbSunnyIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap

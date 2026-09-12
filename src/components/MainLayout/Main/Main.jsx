@@ -2,6 +2,7 @@ import { ThemeProvider, CssBaseline, Stack } from "@mui/material";
 import theme from "../../../theme";
 import Weatherinfo from "../InfoPanel/InfoPanel";
 import ChartsPanel from "../ChartPanel/ChartPanel";
+import DailyForecast from "../DailyForecast/DailyForecast";
 
 function Main() {
   return (
@@ -10,13 +11,13 @@ function Main() {
       <Stack
         spacing={3}
         sx={{
-          minHeight: "100vh",
           p: { xs: 2, sm: 4 },
           bgcolor: "background.default",
         }}
       >
         <Weatherinfo />
         <ChartsPanel />
+        <DailyForecast />
       </Stack>
     </ThemeProvider>
   );

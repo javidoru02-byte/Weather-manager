@@ -12,6 +12,7 @@
       "lat": 50.4501,
       "lon": 30.5241
     }
+    
   ],
   "$schema": "./node_modules/json-server/schema.json"
 }

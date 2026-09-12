@@ -27,7 +27,10 @@
   },
   "forecast": {
     "fiveDaysTitle": "5-Day Forecast",
-    "tempLabel": "Temperature (°C)"
+    "tempLabel": "Temperature (°C)",
+    "loading": "Loading forecast...",
+    "error": "Failed to load forecast",
+    "empty": "Enter a city to see the forecast"
   },
   "buttons": {
     "cityPlaceholder": "Enter city name...",
