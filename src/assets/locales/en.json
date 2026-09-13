@@ -43,14 +43,34 @@
     "deleteTooltip": "Remove from favourites"
   },
   "profile": {
+    "title": "User Profile",
     "greeting": "Hello",
-    "logout": "Log out"
+    "saveSuccess": "Profile updated successfully!",
+    "saveButton": "Save Changes",
+    "logoutButton": "Log Out"
   },
   "auth": {
-    "title": "Registration",
-    "namePlaceholder": "Username",
+    "loginTab": "Sign In",
+    "registerTab": "Sign Up",
+    "loginTitle": "Sign In",
+    "registerTitle": "Sign Up",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "middleName": "Middle Name (optional)",
+    "phone": "Phone Number (optional)",
     "emailPlaceholder": "Email",
     "passwordPlaceholder": "Password",
-    "submitButton": "REGISTER AND LOG IN"
+    "choosePhoto": "Upload photo",
+    "submitLogin": "Sign In",
+    "submitRegister": "Sign Up",
+    "orDivider": "OR",
+    "guestButton": "Continue as guest",
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "serverError": "Server error. Please try again later",
+      "emailAlreadyExists": "User with this email already exists",
+      "sessionExpired": "Session expired. Please sign in again",
+      "updateFailed": "Failed to update profile"
+    }
   }
 }
