@@ -43,14 +43,34 @@
     "deleteTooltip": "Видалити з обраного"
   },
   "profile": {
+    "title": "Особистий кабінет",
     "greeting": "Привіт",
-    "logout": "Вийти"
+    "saveSuccess": "Дані успішно збережено!",
+    "saveButton": "Зберегти зміни",
+    "logoutButton": "Вийти з акаунту"
   },
   "auth": {
-    "title": "Реєстрація",
-    "namePlaceholder": "Ім'я користувача",
+    "loginTab": "Вхід",
+    "registerTab": "Реєстрація",
+    "loginTitle": "Вхід у систему",
+    "registerTitle": "Реєстрація",
+    "firstName": "Ім'я",
+    "lastName": "Прізвище",
+    "middleName": "По батькові (опціонально)",
+    "phone": "Номер телефону (опціонально)",
     "emailPlaceholder": "Електронна пошта",
     "passwordPlaceholder": "Пароль",
-    "submitButton": "ЗАРЕЄСТРУВАТИСЯ ТА УВІЙТИ"
+    "choosePhoto": "Обрати фото",
+    "submitLogin": "Увійти",
+    "submitRegister": "Зареєструватися",
+    "orDivider": "АБО",
+    "guestButton": "Продовжити як гість",
+    "errors": {
+      "invalidCredentials": "Невірний email або пароль",
+      "serverError": "Помилка сервера. Спробуйте пізніше",
+      "emailAlreadyExists": "Користувач з такою поштою вже існує",
+      "sessionExpired": "Сесія застаріла. Увійдіть знову",
+      "updateFailed": "Не вдалося оновити дані"
+    }
   }
 }

@@ -14,15 +14,11 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import UserMenu from "../UserMenu/UserMenu";
 
 const pages = [
   { key: "header.home", path: "/" },
   { key: "header.favourites", path: "/favourites" },
-];
-
-const settings = [
-  { key: "header.profile", path: "/profile" },
-  { key: "header.auth", path: "/auth" },
 ];
 
 function Header() {
@@ -187,41 +183,7 @@ function Header() {
           </Box>
 
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title={t("header.profile")}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Profile" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar-user"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting.key}
-                  onClick={() => handleUserSettingClick(setting.path)}
-                >
-                  <Typography sx={{ textAlign: "center" }}>
-                    {t(setting.key)}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
+          <UserMenu />
           <LanguageSwitcher />    
         </Toolbar>
       </Container>

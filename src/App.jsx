@@ -6,8 +6,9 @@ import Header from "./components/Header/Header/Header";
 import MainLayout from "./components/MainLayout/Main/Main";
 import Footer from "./components/Footer/Footer";
 import FavouritesList from "./components/Header/FavouritesList/FavouritesList";
-import AuthPage from "./components/auth/authPage";
+import AuthPage from "./components/auth/AuthPage";
 import UserProfile from "./components/Header/UserProfile/UserProfile";
+import { ProtectedRoute, PublicOnlyRoute } from "./components/common/RouteGuards";
 
 import "./App.css";
 
@@ -31,8 +32,18 @@ function App() {
           <Routes>
             <Route path="/" element={<MainLayout />} />
             <Route path="/favourites" element={<FavouritesList />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/auth" element = {
+                <PublicOnlyRoute>
+                  <AuthPage />
+                </PublicOnlyRoute>
+              }
+            />
+            <Route path="/profile" element = {
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
         <Footer />
