@@ -72,6 +72,7 @@
     }
   },
   "auth": {
+    "googleButton": "Увійти через Google",
     "loginTab": "Вхід",
     "registerTab": "Реєстрація",
     "loginTitle": "Вхід у систему",

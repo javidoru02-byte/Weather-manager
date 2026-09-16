@@ -72,6 +72,7 @@
     }
   },
   "auth": {
+    "googleButton": "Sign in with Google",
     "loginTab": "Sign In",
     "registerTab": "Sign Up",
     "loginTitle": "Sign In",

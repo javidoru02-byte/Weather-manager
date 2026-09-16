@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Box, Tabs, Tab, Typography, Button, Divider } from "@mui/material";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import ChangePasswordDialog from "../Header/UserProfile/ChangePassword/ChangePasswordDialog";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { cleanError, loginWithGoogle } from "../../store/slices/authSlice";
-import { GOOGLE_CLIENT_ID } from "../../constants/constants";
+import { cleanError } from "../../store/slices/authSlice";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 function AuthPage() {
   const { t } = useTranslation();
@@ -34,12 +33,6 @@ function AuthPage() {
 
   const handleGuestLogin = () => {
     navigate("/");
-  };
-
-  const handleGoogleSuccess = (credentialResponse) => {
-    if (credentialResponse.credential) {
-      dispatch(loginWithGoogle(credentialResponse.credential));
-    }
   };
 
   return (
@@ -83,17 +76,7 @@ function AuthPage() {
 
       <Divider sx={{ my: 2.5 }}>{t("auth.orDivider")}</Divider>
 
-      <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
-        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={() => console.error("Google Login Failed")}
-            theme="outline"
-            shape="rectangular"
-            width="100%"
-          />
-        </GoogleOAuthProvider>
-      </Box>
+      <GoogleLoginButton />
 
       <Button
         fullWidth
