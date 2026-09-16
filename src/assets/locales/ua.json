@@ -25,6 +25,10 @@
     "sunset": "Захід сонця",
     "coordinates": "Координати"
   },
+  "units": {
+    "km": "км",
+    "kmh": "км/год"
+  },
   "forecast": {
     "fiveDaysTitle": "Прогноз на 5 днів",
     "tempLabel": "Температура (°C)",

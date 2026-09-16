@@ -1,6 +1,6 @@
-export const formatVisibility = (meters) => {
+export const formatVisibility = (meters, unit) => {
   if (meters == null) return "-";
-  return `${(meters / 1000).toFixed(1)} км`;
+  return `${(meters / 1000).toFixed(1)} ${unit}`;
 };
 
 export const formatHumidity = (percent) => {
@@ -8,10 +8,10 @@ export const formatHumidity = (percent) => {
   return `${percent}%`;
 };
 
-export const formatWind = (speedMs) => {
+export const formatWind = (speedMs, unit) => {
   if (speedMs == null) return "-";
   const kmh = speedMs * 3.6;
-  return `${kmh.toFixed(1)} км/год`;
+  return `${kmh.toFixed(1)} ${unit}`;
 };
 
 export const formatClouds = (percent) => {

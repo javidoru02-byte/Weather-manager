@@ -36,7 +36,7 @@ function WeatherStats({ weatherData, timezoneOffset }) {
       {
         icon: <VisibilityRoundedIcon fontSize="small" />,
         label: t("stats.visibility"),
-        value: formatVisibility(weatherData?.visibility) ?? "—",
+        value: formatVisibility(weatherData?.visibility, t("units.km")) ?? "—",
       },
       {
         icon: <WaterDropRoundedIcon fontSize="small" />,
@@ -46,7 +46,7 @@ function WeatherStats({ weatherData, timezoneOffset }) {
       {
         icon: <AirRoundedIcon fontSize="small" />,
         label: t("stats.wind"),
-        value: formatWind(weatherData?.wind?.speed) ?? "—",
+        value: formatWind(weatherData?.wind?.speed, t("units.kmh")) ?? "—",
       },
       {
         icon: <CloudRoundedIcon fontSize="small" />,
