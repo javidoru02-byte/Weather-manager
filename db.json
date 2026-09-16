@@ -25,6 +25,17 @@
       "authProvider": "local",
       "createdAt": "2026-09-12T21:53:40.444Z",
       "id": "5qjtxPkBJ2Q"
+    },
+    {
+      "email": "braxman1990@gmail.com",
+      "firstName": "Kiril",
+      "lastName": "Brychkovskyi",
+      "middleName": "Олегович",
+      "phone": "",
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIKFOaRU8NcrzkPzmjf6VizmjGkLPePu86bCpXFJXqcSxfJdI0=s96-c",
+      "isGoogleAuth": true,
+      "id": "n2jxCJhYUBA",
+      "password": "123456"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

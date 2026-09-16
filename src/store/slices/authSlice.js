@@ -219,6 +219,56 @@ export const resetPasswordWithCode = createAsyncThunk(
   }
 );
 
+export const loginWithGoogle = createAsyncThunk(
+  `${AUTH_SLICE_NAME}/loginWithGoogle`,
+  async function (credential, { rejectWithValue }) {
+    try {
+      const base64Url = credential.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
+      );
+      const googleData = JSON.parse(jsonPayload);
+
+      const cleanEmail = googleData.email.trim().toLowerCase();
+      const { data: users } = await jsonApi.get(`/${AUTH_SLICE_NAME}`);
+      let user = users.find((u) => u.email?.trim().toLowerCase() === cleanEmail);
+
+      if (!user) {
+        const newUser = {
+          email: cleanEmail,
+          firstName: googleData.given_name || "",
+          lastName: googleData.family_name || "",
+          middleName: "",
+          phone: "",
+          avatar: googleData.picture || "",
+          isGoogleAuth: true,
+        };
+        const res = await jsonApi.post(`/${AUTH_SLICE_NAME}`, newUser);
+        user = res.data;
+      }
+
+      const token = crypto.randomUUID();
+      const safeUser = Object.fromEntries(
+        Object.entries(user).filter(([key]) => key !== "password")
+      );
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(safeUser));
+
+      return {
+        user: safeUser,
+        token,
+      };
+    } catch {
+      return rejectWithValue("serverError");
+    }
+  }
+);
+
 const setLoading = (state) => {
   state.loading = true;
   state.error = null;
@@ -302,6 +352,10 @@ const authSlice = createSlice({
     builder.addCase(resetPasswordWithCode.pending, setLoading);
     builder.addCase(resetPasswordWithCode.fulfilled, setDone);
     builder.addCase(resetPasswordWithCode.rejected, setError);
+    // google login
+    builder.addCase(loginWithGoogle.pending, setLoading);
+    builder.addCase(loginWithGoogle.fulfilled, setSuccess);
+    builder.addCase(loginWithGoogle.rejected, setError);
   }
 })
 

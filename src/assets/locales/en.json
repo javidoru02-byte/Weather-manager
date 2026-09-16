@@ -25,6 +25,10 @@
     "sunset": "Sunset",
     "coordinates": "Coordinates"
   },
+  "units": {
+    "km": "km",
+    "kmh": "km/h"
+  },
   "forecast": {
     "fiveDaysTitle": "5-Day Forecast",
     "tempLabel": "Temperature (°C)",
