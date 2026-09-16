@@ -40,7 +40,7 @@ function RegisterForm() {
       await dispatch(registerUser(formData)).unwrap();
       navigate("/");
     } catch {
-      // помилка записується в state.error через rejected-кейс
+      // обробляється в слайсі
     }
   };
 

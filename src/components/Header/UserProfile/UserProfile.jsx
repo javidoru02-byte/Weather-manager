@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Box, Typography, TextField, Button, Stack, Alert, Avatar } from "@mui/material";
+import ChangePasswordDialog from "./ChangePassword/ChangePasswordDialog";
 
 import { logoutUser, updateUser } from "../../../store/slices/authSlice";
 
@@ -22,6 +23,7 @@ function UserProfile() {
 
   const [avatar, setAvatar] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -102,7 +104,7 @@ function UserProfile() {
       )}
 
       <Stack alignItems="center" spacing={1.5} sx={{ mb: 3 }}>
-        <Avatar
+        <Avatar 
           src={avatar}
           alt={formData.firstName || "User"}
           sx={{ width: 80, height: 80 }}
@@ -118,6 +120,7 @@ function UserProfile() {
       <Box component="form" onSubmit={handleSave}>
         <Stack spacing={2}>
           <TextField
+            required
             fullWidth
             disabled
             label={t("auth.emailPlaceholder")}
@@ -171,6 +174,15 @@ function UserProfile() {
 
           <Button
             type="button"
+            variant="outlined"
+            fullWidth
+            onClick={() => setIsPasswordModalOpen(true)}
+          >
+            {t("profile.changePasswordButton")}
+          </Button>
+
+          <Button
+            type="button"
             variant="text"
             color="error"
             fullWidth
@@ -180,6 +192,11 @@ function UserProfile() {
           </Button>
         </Stack>
       </Box>
+      <ChangePasswordDialog
+        open={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+        user={user}
+      />
     </Box>
   );
 }

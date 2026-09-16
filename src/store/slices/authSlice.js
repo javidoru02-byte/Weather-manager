@@ -20,32 +20,36 @@ const initialState = {
 
 export const loginUser = createAsyncThunk(
   `${AUTH_SLICE_NAME}/loginUser`,
-  async function (payload, { rejectWithValue }) {
+  async function ({ email, password }, { rejectWithValue }) {
     try {
-      const response = await jsonApi.get(`/${AUTH_SLICE_NAME}`, {
-        params: {
-          email: payload.email.trim().toLowerCase(),
-          password: payload.password,
-        },
-      });
+      const cleanEmail = email.trim().toLowerCase();
+      const enteredPassword = String(password);
 
-      if (response.data.length === 0) {
+      const { data: users } = await jsonApi.get(`/${AUTH_SLICE_NAME}`);
+
+      const user = users.find(
+        (u) =>
+          u.email?.trim().toLowerCase() === cleanEmail &&
+          String(u.password) === enteredPassword
+      );
+
+      if (!user) {
         return rejectWithValue("invalidCredentials");
       }
 
-      const user = response.data[0];
       const token = crypto.randomUUID();
-
-      const { password, ...safeUser } = user; // eslint-disable-line
+      const safeUser = Object.fromEntries(
+        Object.entries(user).filter(([key]) => key !== "password")
+      );
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(safeUser));
 
-return {
-  user: safeUser,
-  token,
-};
-    } catch (error) { // eslint-disable-line
+      return {
+        user: safeUser,
+        token,
+      };
+    } catch {
       return rejectWithValue("serverError");
     }
   }
@@ -129,6 +133,92 @@ export const updateUser = createAsyncThunk(
   }
 )
 
+export const changePassword = createAsyncThunk(
+  `${AUTH_SLICE_NAME}/changePassword`,
+  async function ({ id, currentPassword, newPassword }, { rejectWithValue }) {
+    try {
+      const { data: user } = await jsonApi.get(`/${AUTH_SLICE_NAME}/${id}`);
+
+      if (String(user.password) !== String(currentPassword)) {
+        return rejectWithValue("wrongCurrentPassword");
+      }
+
+      await jsonApi.patch(`/${AUTH_SLICE_NAME}/${id}`, {
+        password: String(newPassword),
+      });
+
+      return true;
+    } catch {
+      return rejectWithValue("serverError");
+    }
+  }
+);
+
+export const sendResetCode = createAsyncThunk(
+  `${AUTH_SLICE_NAME}/sendResetCode`,
+  async function ({ email }, { rejectWithValue }) {
+    try {
+      const { data: users } = await jsonApi.get(`/${AUTH_SLICE_NAME}`);
+      const user = users.find(
+        (u) => u.email?.trim().toLowerCase() === email.trim().toLowerCase()
+      );
+
+      if (!user) {
+        return rejectWithValue("userNotFound");
+      }
+
+      const code = String(Math.floor(100000 + Math.random() * 900000)); // потім підключимо бекенд (Kiril)
+      sessionStorage.setItem("reset_session", JSON.stringify({ email, code }));
+
+      console.log(
+        `[EMAIL DEMO] Лист надіслано на ${email}. Ваш код: ${code}`,
+      ); // на етапі тестування поки без бекенду (Kiril)
+
+      return { code };
+    } catch {
+      return rejectWithValue("serverError");
+    }
+  }
+);
+
+export const resetPasswordWithCode = createAsyncThunk(
+  `${AUTH_SLICE_NAME}/resetPasswordWithCode`,
+  async function ({ email, code, newPassword }, { rejectWithValue }) {
+    try {
+      const savedSession = sessionStorage.getItem("reset_session");
+      if (!savedSession) {
+        return rejectWithValue("codeExpired");
+      }
+
+      const parsed = JSON.parse(savedSession);
+      if (
+        parsed.email.toLowerCase() !== email.toLowerCase() ||
+        String(parsed.code) !== String(code).trim()
+      ) {
+        return rejectWithValue("invalidCode");
+      }
+
+      const { data: users } = await jsonApi.get(`/${AUTH_SLICE_NAME}`);
+      const user = users.find(
+        (u) => u.email?.trim().toLowerCase() === email.trim().toLowerCase()
+      );
+
+      if (!user) {
+        return rejectWithValue("userNotFound");
+      }
+
+      await jsonApi.patch(`/${AUTH_SLICE_NAME}/${user.id}`, {
+        password: String(newPassword),
+      });
+
+      sessionStorage.removeItem("reset_session");
+      return true;
+    } catch {
+      return rejectWithValue("serverError");
+    }
+  }
+);
+
 const setLoading = (state) => {
   state.loading = true;
   state.error = null;
@@ -142,6 +232,11 @@ const setError = (state, action) => {
 const setSuccess = (state, { payload }) => {
   state.user = payload.user;
   state.token = payload.token;
+  state.loading = false;
+  state.error = null;
+};
+
+const setDone = (state) => {
   state.loading = false;
   state.error = null;
 };
@@ -170,21 +265,17 @@ const authSlice = createSlice({
     cleanError: (state) => {
       state.error = null;
     },
-    continueAsGuest: (state) => {
-      state.user = { firstName: "Guest", role: "guest" };
-      state.token = "guest-session";
-      state.error = null;
-},
   },
   extraReducers: (builder) => {
+    // вхід
     builder.addCase(loginUser.fulfilled, setSuccess);
     builder.addCase(loginUser.pending, setLoading);
     builder.addCase(loginUser.rejected, setError);
-
+    // реєстрація
     builder.addCase(registerUser.fulfilled, setSuccess);
     builder.addCase(registerUser.pending, setLoading);
     builder.addCase(registerUser.rejected, setError);
-
+    // перевірка токена
     builder.addCase(validateToken.fulfilled, setUser);
     builder.addCase(validateToken.pending, setLoading);
     builder.addCase(validateToken.rejected, (state, { payload }) => {
@@ -193,12 +284,26 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = payload;
     });
-
+    // оновлення профіля
     builder.addCase(updateUser.fulfilled, setUser);
     builder.addCase(updateUser.pending, setLoading);
     builder.addCase(updateUser.rejected, setError);
+    // зміна пароля
+    builder.addCase(changePassword.pending, setLoading);
+    builder.addCase(changePassword.fulfilled, setDone);
+    builder.addCase(changePassword.rejected, setError);
+
+    // відправка коду
+    builder.addCase(sendResetCode.pending, setLoading);
+    builder.addCase(sendResetCode.fulfilled, setDone);
+    builder.addCase(sendResetCode.rejected, setError);
+
+    // встановка нового пароля за кодом
+    builder.addCase(resetPasswordWithCode.pending, setLoading);
+    builder.addCase(resetPasswordWithCode.fulfilled, setDone);
+    builder.addCase(resetPasswordWithCode.rejected, setError);
   }
 })
 
-export const { logoutUser, cleanError, continueAsGuest } = authSlice.actions;
+export const { logoutUser, cleanError } = authSlice.actions;
 export default authSlice.reducer;

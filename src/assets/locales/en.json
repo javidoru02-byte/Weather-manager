@@ -47,7 +47,25 @@
     "greeting": "Hello",
     "saveSuccess": "Profile updated successfully!",
     "saveButton": "Save Changes",
-    "logoutButton": "Log Out"
+    "logoutButton": "Log Out",
+    "changePasswordButton": "Change Password",
+    "password": {
+      "titleNormal": "Change Password",
+      "titleCode": "Code Verification",
+      "titleNew": "New Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "codePlaceholder": "6-digit code",
+      "enterEmailPrompt": "Enter your account email to receive a code:",
+      "sendCodeBtn": "Send Code",
+      "codeSentTo": "Code sent to {{email}}. Enter it below:",
+      "saveBtn": "Save",
+      "nextBtn": "Next",
+      "setNewPasswordBtn": "Set Password",
+      "cancelBtn": "Cancel",
+      "demoCodeAlert": "A confirmation email with your code has been sent. Please check your inbox (including the spam folder)."
+    }
   },
   "auth": {
     "loginTab": "Sign In",
@@ -65,12 +83,21 @@
     "submitRegister": "Sign Up",
     "orDivider": "OR",
     "guestButton": "Continue as guest",
+    "forgotPassword": "Forgot password?",
     "errors": {
       "invalidCredentials": "Invalid email or password",
       "serverError": "Server error. Please try again later",
       "emailAlreadyExists": "User with this email already exists",
       "sessionExpired": "Session expired. Please sign in again",
-      "updateFailed": "Failed to update profile"
+      "updateFailed": "Failed to update profile",
+      "wrongCurrentPassword": "Wrong current password",
+      "passwordsMismatch": "Passwords do not match",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "userNotFound": "User with this email not found",
+      "invalidCode": "Invalid confirmation code",
+      "codeExpired": "Confirmation code expired or not requested",
+      "emailRequired": "Please enter an email address",
+      "codeEmailMismatch": "Code was sent to a different email address"
     }
   }
 }
