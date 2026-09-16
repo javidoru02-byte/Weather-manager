@@ -47,7 +47,25 @@
     "greeting": "Привіт",
     "saveSuccess": "Дані успішно збережено!",
     "saveButton": "Зберегти зміни",
-    "logoutButton": "Вийти з акаунту"
+    "logoutButton": "Вийти з акаунту",
+    "changePasswordButton": "Змінити пароль",
+    "password": {
+      "titleNormal": "Зміна пароля",
+      "titleCode": "Підтвердження коду",
+      "titleNew": "Новий пароль",
+      "currentPassword": "Поточний пароль",
+      "newPassword": "Новий пароль",
+      "confirmPassword": "Підтвердження нового пароля",
+      "codePlaceholder": "6-значний код",
+      "enterEmailPrompt": "Введіть пошту вашого акаунта та отримайте код:",
+      "sendCodeBtn": "Код",
+      "codeSentTo": "Код надіслано на {{email}}. Введіть його нижче:",
+      "saveBtn": "Зберегти",
+      "nextBtn": "Далі",
+      "setNewPasswordBtn": "Встановити пароль",
+      "cancelBtn": "Скасувати",
+      "demoCodeAlert": "Лист із кодом підтвердження надіслано. Будь ласка, перевірте вашу поштову скриньку (включно з папкою «Спам»)."
+    }
   },
   "auth": {
     "loginTab": "Вхід",
@@ -65,12 +83,21 @@
     "submitRegister": "Зареєструватися",
     "orDivider": "АБО",
     "guestButton": "Продовжити як гість",
+    "forgotPassword": "Забули пароль?",
     "errors": {
       "invalidCredentials": "Невірний email або пароль",
       "serverError": "Помилка сервера. Спробуйте пізніше",
       "emailAlreadyExists": "Користувач з такою поштою вже існує",
       "sessionExpired": "Сесія застаріла. Увійдіть знову",
-      "updateFailed": "Не вдалося оновити дані"
+      "updateFailed": "Не вдалося оновити дані",
+      "wrongCurrentPassword": "Невірний поточний пароль",
+      "passwordsMismatch": "Паролі не збігаються",
+      "passwordMinLength": "Новий пароль має бути не менше 6 символів",
+      "userNotFound": "Користувача з такою поштою не знайдено",
+      "invalidCode": "Невірний код підтвердження",
+      "codeExpired": "Час дії коду вичерпано або його не було надіслано",
+      "emailRequired": "Введіть адресу електронної пошти",
+      "codeEmailMismatch": "Код було надіслано на іншу пошту"
     }
   }
 }

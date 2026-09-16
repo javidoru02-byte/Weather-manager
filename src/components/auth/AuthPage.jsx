@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Box, Tabs, Tab, Typography, Button } from "@mui/material";
-
+import ChangePasswordDialog from "../Header/UserProfile/ChangePassword/ChangePasswordDialog";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { continueAsGuest, cleanError } from "../../store/slices/authSlice";
+import { cleanError } from "../../store/slices/authSlice";
 
 function AuthPage() {
   const { t } = useTranslation();
@@ -16,6 +16,7 @@ function AuthPage() {
   const { token } = useSelector((state) => state.auth);
 
   const [tabIndex, setTabIndex] = useState(0);
+  const [isForgotOpen, setIsForgotOpen] = useState(false);
   const isRegister = tabIndex === 1;
 
   useEffect(() => {
@@ -30,7 +31,6 @@ function AuthPage() {
   };
 
   const handleGuestLogin = () => {
-    dispatch(continueAsGuest());
     navigate("/");
   };
 
@@ -62,6 +62,17 @@ function AuthPage() {
 
       {isRegister ? <RegisterForm /> : <LoginForm />}
 
+      {!isRegister && (
+        <Button
+          variant="text"
+          size="small"
+          onClick={() => setIsForgotOpen(true)}
+          sx={{ mt: 1, textTransform: "none", display: "block", mx: "auto" }}
+        >
+          {t("auth.forgotPassword")}
+        </Button>
+      )}
+
       <Button
         fullWidth
         variant="text"
@@ -70,6 +81,12 @@ function AuthPage() {
       >
         {t("auth.guestButton")}
       </Button>
+
+      <ChangePasswordDialog
+        open={isForgotOpen}
+        onClose={() => setIsForgotOpen(false)}
+        initialStep="code"
+      />
     </Box>
   );
 }
