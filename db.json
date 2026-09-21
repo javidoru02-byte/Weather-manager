@@ -8,9 +8,15 @@
     },
     {
       "name": "Ternopil",
-      "id": "1KLkYLyNFL8",
+      "id": "ccAFUhhU57w",
       "lat": 49.5559,
       "lon": 25.6056
+    },
+    {
+      "name": "Cher",
+      "id": "lwerPwcd4SM",
+      "lat": 47,
+      "lon": 2.5
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

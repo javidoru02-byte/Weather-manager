@@ -93,6 +93,8 @@ export const Weatherinfo = () => {
   };
 
   const tempValue = weatherData?.main?.temp;
+  const displayedCityName =
+    weatherData?.name || city || t("search.cityPlaceholder");
 
   return (
     <Paper
@@ -131,7 +133,7 @@ export const Weatherinfo = () => {
           sx={{ minWidth: 0 }}
         >
           <Typography variant="h6" color="text.secondary" noWrap>
-            {city || t("search.cityPlaceholder")}
+            {displayedCityName}
           </Typography>
 
           {weatherData && (
