@@ -1,7 +1,14 @@
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Paper, Stack, Typography, Divider, IconButton, Tooltip } from "@mui/material";
+import {
+  Paper,
+  Stack,
+  Typography,
+  Divider,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
@@ -70,7 +77,7 @@ export const Weatherinfo = () => {
 
   const isFavourite = Boolean(
     weatherData &&
-      favourites.some((favourite) => favourite.id === weatherData.id),
+    favourites.some((favourite) => favourite.id === weatherData.id),
   );
 
   const handleAddFavourite = () => {
