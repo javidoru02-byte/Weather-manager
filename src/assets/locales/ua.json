@@ -40,7 +40,9 @@
     "addToFavourites": "Додати до фаворитів"
   },
   "favourites": {
-    "deleteTooltip": "Видалити з обраного"
+    "deleteTooltip": "Видалити з обраного",
+    "empty": "Список порожній",
+    "alreadyAdded": "Вже додано в обране"
   },
   "profile": {
     "greeting": "Привіт",

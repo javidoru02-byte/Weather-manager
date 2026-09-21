@@ -40,7 +40,9 @@
     "addToFavourites": "Add to Favourites"
   },
   "favourites": {
-    "deleteTooltip": "Remove from favourites"
+    "deleteTooltip": "Remove from favourites",
+    "empty": "No favourites yet",
+    "alreadyAdded": "Already in favourites"
   },
   "profile": {
     "greeting": "Hello",

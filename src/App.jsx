@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -5,9 +7,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Header from "./components/Header/Header/Header";
 import MainLayout from "./components/MainLayout/Main/Main";
 import Footer from "./components/Footer/Footer";
-import FavouritesList from "./components/Header/FavouritesList/FavouritesList";
 import AuthPage from "./components/auth/authPage";
 import UserProfile from "./components/Header/UserProfile/UserProfile";
+import { getFavourites } from "./store/slices/favouritesSlice";
 
 import "./App.css";
 
@@ -22,6 +24,12 @@ const theme = createTheme({
 });
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFavourites());
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -30,7 +38,6 @@ function App() {
         <main className="content">
           <Routes>
             <Route path="/" element={<MainLayout />} />
-            <Route path="/favourites" element={<FavouritesList />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/profile" element={<UserProfile />} />
           </Routes>
