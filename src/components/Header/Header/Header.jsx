@@ -1,190 +1,200 @@
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
-import { NavLink, useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import UserMenu from "../UserMenu/UserMenu";
+import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-const pages = [
-  { key: "header.home", path: "/" },
-  { key: "header.favourites", path: "/favourites" },
-];
+import FavouritesMenu from '../FavouritesMenu/FavouritesMenu';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
+import UserMenu from '../UserMenu/UserMenu';
 
 function Header() {
   const { t } = useTranslation();
-  
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
+
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElFavourites, setAnchorElFavourites] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleOpenFavouritesMenu = (event) => {
+    setAnchorElFavourites(event.currentTarget);
   };
 
-  const handleMenuItemClick = (path) => {
+  const handleCloseFavouritesMenu = () => {
+    setAnchorElFavourites(null);
+  };
+
+  const handleMobileHomeClick = () => {
     handleCloseNavMenu();
-    navigate(path);
+    navigate('/');
   };
 
-  const handleUserSettingClick = (path) => {
-    handleCloseUserMenu();
-    navigate(path);
+  const handleMobileFavouritesClick = (event) => {
+    handleOpenFavouritesMenu(event);
+    handleCloseNavMenu();
   };
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-
-          <Box
-            component="img"
-            src="/favicon.jpg"
-            alt="Weather"
-            sx={{
-              display: { xs: "none", md: "flex" },
-               width: 40,
-               height: 40,
-               objectFit: "contain",
+        <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', flex: '1 1 0' }}>
+            <Box
+              component="img"
+              src="/favicon.jpg"
+              alt="Weather"
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                width: 40,
+                height: 40,
+                objectFit: 'contain',
                 mr: 1,
-            }}
-          />
-
-          <Typography
-            variant="h6"
-            noWrap
-            component={NavLink}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            WEATHER
-          </Typography>
-
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="menu"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+            />
+
+            <Typography
+              variant="h6"
+              noWrap
+              component={NavLink}
+              to="/"
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page.key}
-                  onClick={() => handleMenuItemClick(page.path)}
-                >
-                  <Typography sx={{ textAlign: "center" }}>
-                    {t(page.key)}
+              WEATHER
+            </Typography>
+
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="menu"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                keepMounted
+                transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{ display: { xs: 'block', md: 'none' } }}
+              >
+                <MenuItem onClick={handleMobileHomeClick}>
+                  <Typography sx={{ textAlign: 'center' }}>
+                    {t('header.home')}
                   </Typography>
                 </MenuItem>
-              ))}
-            </Menu>
+                <MenuItem onClick={handleMobileFavouritesClick}>
+                  <Typography sx={{ textAlign: 'center' }}>
+                    {t('header.favourites')}
+                  </Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+
+            <Box
+              component="img"
+              src="/favicon.jpg"
+              alt="Weather"
+              sx={{
+                display: { xs: 'flex', md: 'none' },
+                width: 40,
+                height: 40,
+                objectFit: 'contain',
+                mr: 1,
+              }}
+            />
+
+            <Typography
+              variant="h5"
+              noWrap
+              component={NavLink}
+              to="/"
+              sx={{
+                display: { xs: 'flex', md: 'none' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              WEATHER
+            </Typography>
           </Box>
 
           <Box
-           component="img"
-           src="/favicon.jpg"
-           alt="Weather"
-           sx={{
-             display: { xs: "flex", md: "none" },
-             width: 40,
-             height: 40,
-             objectFit: "contain",
-             mr: 1,
-             }}
-          />
-
-          <Typography
-            variant="h5"
-            noWrap
-            component={NavLink}
-            to="/"
             sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              display: { xs: 'none', md: 'flex' },
+              flex: '1 1 0',
+              justifyContent: 'center',
             }}
           >
-            WEATHER
-          </Typography>
+            <Button
+              component={NavLink}
+              to="/"
+              sx={{
+                my: 2,
+                color: 'white',
+                display: 'block',
+                '&.active': { fontWeight: 'bold', textDecoration: 'underline' },
+              }}
+            >
+              {t('header.home')}
+            </Button>
 
-
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={t(page.key)}
-                component={NavLink}
-                to={page.path}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  "&.active": { fontWeight: "bold", textDecoration: "underline" },
-                }}
-              >
-                {t(page.key)}
-              </Button>
-            ))}
+            <Button
+              onClick={handleOpenFavouritesMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              {t('header.favourites')}
+            </Button>
           </Box>
 
+          <FavouritesMenu
+            anchorEl={anchorElFavourites}
+            open={Boolean(anchorElFavourites)}
+            onClose={handleCloseFavouritesMenu}
+          />
 
-          <UserMenu />
-          <LanguageSwitcher />    
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              flex: '1 1 0',
+              gap: 1.5,
+            }}
+          >
+            <UserMenu />
+            <LanguageSwitcher />
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

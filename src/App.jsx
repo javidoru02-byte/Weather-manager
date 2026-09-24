@@ -1,28 +1,39 @@
-import { Routes, Route } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 
-import Header from "./components/Header/Header/Header";
-import MainLayout from "./components/MainLayout/Main/Main";
-import Footer from "./components/Footer/Footer";
-import FavouritesList from "./components/Header/FavouritesList/FavouritesList";
-import AuthPage from "./components/auth/AuthPage";
-import UserProfile from "./components/Header/UserProfile/UserProfile";
-import { ProtectedRoute, PublicOnlyRoute } from "./components/common/RouteGuards";
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header/Header';
+import UserProfile from './components/Header/UserProfile/UserProfile';
+import MainLayout from './components/MainLayout/Main/Main';
+import AuthPage from './components/auth/AuthPage';
+import {
+  ProtectedRoute,
+  PublicOnlyRoute,
+} from './components/common/RouteGuards';
+import { getFavourites } from './store/slices/favouritesSlice';
 
-import "./App.css";
+import './App.css';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#0d162c",
-      light: "#D6C8E1",
-      dark: "#82A2B5",
+      main: '#0d162c',
+      light: '#D6C8E1',
+      dark: '#82A2B5',
     },
   },
 });
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFavourites());
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -31,14 +42,17 @@ function App() {
         <main className="content">
           <Routes>
             <Route path="/" element={<MainLayout />} />
-            <Route path="/favourites" element={<FavouritesList />} />
-            <Route path="/auth" element = {
+            <Route
+              path="/auth"
+              element={
                 <PublicOnlyRoute>
                   <AuthPage />
                 </PublicOnlyRoute>
               }
             />
-            <Route path="/profile" element = {
+            <Route
+              path="/profile"
+              element={
                 <ProtectedRoute>
                   <UserProfile />
                 </ProtectedRoute>
