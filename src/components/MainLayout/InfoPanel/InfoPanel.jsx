@@ -1,19 +1,19 @@
-import { useState, useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Paper, Stack, Typography, Divider } from "@mui/material";
-import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
+import PlaceRoundedIcon from '@mui/icons-material/PlaceRounded';
+import { Divider, Paper, Stack, Typography } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCitySuggestions } from '../../../hooks/useCitySuggestions';
 import {
   getWeather,
   getWeatherForFiveDays,
-} from "../../../store/slices/weatherSlice";
-import { useCitySuggestions } from "../../../hooks/useCitySuggestions";
+} from '../../../store/slices/weatherSlice';
 import {
   formatCityLabel,
   formatTemperature,
-} from "../../../utilits/formatWeather";
-import CitySearch from "./CitySearch";
-import WeatherStats from "./WeatherStats";
+} from '../../../utilits/formatWeather';
+import CitySearch from './CitySearch';
+import WeatherStats from './WeatherStats';
 
 const SEARCH_DEBOUNCE_MS = 1500;
 
@@ -21,8 +21,8 @@ export const Weatherinfo = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [inputValue, setInputValue] = useState("");
-  const [city, setCity] = useState("");
+  const [inputValue, setInputValue] = useState('');
+  const [city, setCity] = useState('');
   const [lastSelectedLabel, setLastSelectedLabel] = useState(null);
 
   const { weatherData, error } = useSelector((state) => state.weather);
@@ -36,7 +36,7 @@ export const Weatherinfo = () => {
 
   const searchCity = useCallback(
     (query) => {
-      const queryStr = typeof query === "string" ? query.trim() : query?.name;
+      const queryStr = typeof query === 'string' ? query.trim() : query?.name;
       if (!queryStr) return;
 
       setCity(queryStr);
@@ -69,13 +69,13 @@ export const Weatherinfo = () => {
   return (
     <Paper
       elevation={0}
-      sx={{ p: { xs: 2, sm: 3 }, border: "1px solid", borderColor: "divider" }}
+      sx={{ p: { xs: 2, sm: 3 }, border: '1px solid', borderColor: 'divider' }}
     >
       <Stack spacing={1.5} sx={{ mb: 3 }}>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <PlaceRoundedIcon sx={{ color: "primary.main" }} fontSize="small" />
+        <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+          <PlaceRoundedIcon sx={{ color: 'primary.main' }} fontSize="small" />
           <Typography variant="overline" color="text.secondary">
-            {t("search.weatherStation")}
+            {t('search.weatherStation')}
           </Typography>
         </Stack>
 
@@ -89,14 +89,14 @@ export const Weatherinfo = () => {
         />
       </Stack>
 
-      <Stack direction="row" spacing={2} alignItems="baseline" sx={{ mb: 1 }}>
-        <Typography variant="h3" sx={{ fontFamily: "monospace" }}>
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'baseline', mb: 1 }}>
+        <Typography variant="h3" sx={{ fontFamily: 'monospace' }}>
           {tempValue !== undefined && tempValue !== null
             ? formatTemperature(tempValue)
-            : "--°"}
+            : '--°'}
         </Typography>
         <Typography variant="h6" color="text.secondary" noWrap>
-          {city || t("search.cityPlaceholder")}
+          {city || t('search.cityPlaceholder')}
         </Typography>
       </Stack>
 

@@ -1,32 +1,38 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Box, Stack, TextField, Button, Alert } from "@mui/material";
-import { resetPasswordWithCode } from "../../../../store/slices/authSlice";
+import { Alert, Box, Button, Stack, TextField } from '@mui/material';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { resetPasswordWithCode } from '../../../../store/slices/authSlice';
 
-export default function SetNewPasswordForm({ user, targetEmail, verifiedCode, onSuccess, onClose }) {
+export default function SetNewPasswordForm({
+  user,
+  targetEmail,
+  verifiedCode,
+  onSuccess,
+  onClose,
+}) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (newPassword.length < 6) {
-      setError(t("auth.errors.passwordMinLength"));
+      setError(t('auth.errors.passwordMinLength'));
       return;
     }
     if (newPassword !== confirmPassword) {
-      setError(t("auth.errors.passwordsMismatch"));
+      setError(t('auth.errors.passwordsMismatch'));
       return;
     }
 
     setLoading(true);
-    setError("");
+    setError('');
 
     const emailToReset = user?.email || targetEmail;
 
@@ -35,13 +41,13 @@ export default function SetNewPasswordForm({ user, targetEmail, verifiedCode, on
         email: emailToReset,
         code: verifiedCode,
         newPassword,
-      })
+      }),
     );
 
     setLoading(false);
 
     if (res.error) {
-      setError(t("auth.errors.serverError"));
+      setError(t('auth.errors.serverError'));
     } else {
       onSuccess();
     }
@@ -56,7 +62,7 @@ export default function SetNewPasswordForm({ user, targetEmail, verifiedCode, on
           fullWidth
           required
           type="password"
-          label={t("profile.password.newPassword")}
+          label={t('profile.password.newPassword')}
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
@@ -65,17 +71,21 @@ export default function SetNewPasswordForm({ user, targetEmail, verifiedCode, on
           fullWidth
           required
           type="password"
-          label={t("profile.password.confirmPassword")}
+          label={t('profile.password.confirmPassword')}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
-        <Stack direction="row" spacing={1} justifyContent="flex-end" sx={{ pt: 1 }}>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{ justifyContent: 'flex-end', pt: 1 }}
+        >
           <Button onClick={onClose} color="inherit">
-            {t("profile.password.cancelBtn")}
+            {t('profile.password.cancelBtn')}
           </Button>
           <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? "..." : t("profile.password.setNewPasswordBtn")}
+            {loading ? '...' : t('profile.password.setNewPasswordBtn')}
           </Button>
         </Stack>
       </Stack>

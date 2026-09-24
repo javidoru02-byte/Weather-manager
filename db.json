@@ -15,26 +15,14 @@
   ],
   "users": [
     {
+      "email": "kiril0302ua@gmail.com",
       "firstName": "Кіріл",
       "lastName": "Бричковський",
-      "middleName": "Олегович",
-      "email": "kiril0302ua@gmail.com",
-      "phone": "380969851708",
-      "password": "12345678",
-      "avatar": "https://api.dicebear.com/7.x/initials/svg?seed=Кіріл%20Бричковський",
-      "authProvider": "local",
-      "createdAt": "2026-09-12T21:53:40.444Z",
-      "id": "5qjtxPkBJ2Q"
-    },
-    {
-      "email": "braxman1990@gmail.com",
-      "firstName": "Kiril",
-      "lastName": "Brychkovskyi",
-      "middleName": "Олегович",
-      "phone": "",
-      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIKFOaRU8NcrzkPzmjf6VizmjGkLPePu86bCpXFJXqcSxfJdI0=s96-c",
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJnCWpLz5wtzEOkPA_tXzCfRauMLXpkUwWBRW-I6U7AQaCNSA=s96-c",
       "isGoogleAuth": true,
-      "id": "n2jxCJhYUBA",
+      "id": "AzTm9OF4i2w",
+      "middleName": "Олегович",
+      "phone": "380969851708",
       "password": "123456"
     }
   ],

@@ -1,11 +1,19 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Box, Typography, TextField, Button, Stack, Alert, Avatar } from "@mui/material";
-import ChangePasswordDialog from "./ChangePassword/ChangePasswordDialog";
+import {
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import ChangePasswordDialog from './ChangePassword/ChangePasswordDialog';
 
-import { logoutUser, updateUser } from "../../../store/slices/authSlice";
+import { logoutUser, updateUser } from '../../../store/slices/authSlice';
 
 function UserProfile() {
   const { t } = useTranslation();
@@ -15,31 +23,31 @@ function UserProfile() {
   const { user, token, loading } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    middleName: "",
-    phone: "",
+    firstName: '',
+    lastName: '',
+    middleName: '',
+    phone: '',
   });
 
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState('');
   const [successMsg, setSuccessMsg] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   useEffect(() => {
     if (!token) {
-      navigate("/auth");
+      navigate('/auth');
     }
   }, [token, navigate]);
 
   useEffect(() => {
     if (user) {
       setFormData({
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        middleName: user.middleName || "",
-        phone: user.phone || "",
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        middleName: user.middleName || '',
+        phone: user.phone || '',
       });
-      setAvatar(user.avatar || "");
+      setAvatar(user.avatar || '');
     }
   }, [user]);
 
@@ -68,7 +76,7 @@ function UserProfile() {
         id: user.id,
         ...formData,
         avatar,
-      })
+      }),
     );
 
     if (!res.error) {
@@ -79,41 +87,46 @@ function UserProfile() {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    navigate("/");
+    navigate('/');
   };
 
   return (
     <Box
       sx={{
         maxWidth: 400,
-        mx: "auto",
+        mx: 'auto',
         my: 4,
         p: 3,
-        border: "1px solid rgba(0, 0, 0, 0.12)",
-        borderRadius: "12px",
+        border: '1px solid rgba(0, 0, 0, 0.12)',
+        borderRadius: '12px',
       }}
     >
       <Typography variant="h5" align="center" sx={{ mb: 2 }}>
-        {t("profile.title")}
+        {t('profile.title')}
       </Typography>
 
       {successMsg && (
         <Alert severity="success" sx={{ mb: 2 }}>
-          {t("profile.saveSuccess")}
+          {t('profile.saveSuccess')}
         </Alert>
       )}
 
-      <Stack alignItems="center" spacing={1.5} sx={{ mb: 3 }}>
-        <Avatar 
+      <Stack spacing={1.5} sx={{ alignItems: 'center', mb: 3 }}>
+        <Avatar
           src={avatar}
-          alt={formData.firstName || "User"}
+          alt={formData.firstName || 'User'}
           sx={{ width: 80, height: 80 }}
         >
           {formData.firstName ? formData.firstName[0].toUpperCase() : null}
         </Avatar>
         <Button variant="outlined" size="small" component="label">
-          {t("auth.choosePhoto")}
-          <input type="file" hidden accept="image/*" onChange={handleAvatarChange} />
+          {t('auth.choosePhoto')}
+          <input
+            type="file"
+            hidden
+            accept="image/*"
+            onChange={handleAvatarChange}
+          />
         </Button>
       </Stack>
 
@@ -123,14 +136,14 @@ function UserProfile() {
             required
             fullWidth
             disabled
-            label={t("auth.emailPlaceholder")}
-            value={user?.email || ""}
+            label={t('auth.emailPlaceholder')}
+            value={user?.email || ''}
           />
 
           <TextField
             fullWidth
             required
-            label={t("auth.firstName")}
+            label={t('auth.firstName')}
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
@@ -139,7 +152,7 @@ function UserProfile() {
           <TextField
             fullWidth
             required
-            label={t("auth.lastName")}
+            label={t('auth.lastName')}
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
@@ -147,7 +160,7 @@ function UserProfile() {
 
           <TextField
             fullWidth
-            label={t("auth.middleName")}
+            label={t('auth.middleName')}
             name="middleName"
             value={formData.middleName}
             onChange={handleChange}
@@ -155,7 +168,7 @@ function UserProfile() {
 
           <TextField
             fullWidth
-            label={t("auth.phone")}
+            label={t('auth.phone')}
             name="phone"
             type="tel"
             value={formData.phone}
@@ -169,7 +182,7 @@ function UserProfile() {
             fullWidth
             disabled={loading}
           >
-            {loading ? "..." : t("profile.saveButton")}
+            {loading ? '...' : t('profile.saveButton')}
           </Button>
 
           <Button
@@ -178,7 +191,7 @@ function UserProfile() {
             fullWidth
             onClick={() => setIsPasswordModalOpen(true)}
           >
-            {t("profile.changePasswordButton")}
+            {t('profile.changePasswordButton')}
           </Button>
 
           <Button
@@ -188,7 +201,7 @@ function UserProfile() {
             fullWidth
             onClick={handleLogout}
           >
-            {t("profile.logoutButton")}
+            {t('profile.logoutButton')}
           </Button>
         </Stack>
       </Box>

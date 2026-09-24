@@ -1,80 +1,48 @@
-import { useEffect, useRef, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
-import { loginWithGoogle } from "../../store/slices/authSlice";
-import { GOOGLE_CLIENT_ID } from "../../constants/constants";
+import { Box } from '@mui/material';
+import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { GOOGLE_CLIENT_ID } from '../../constants/constants';
+import { loginWithGoogle } from '../../store/slices/authSlice';
 
-export default function GoogleLoginButton() {
-  const { t } = useTranslation();
+let isGoogleScriptInitialized = false;
+
+function GoogleLoginButton() {
   const dispatch = useDispatch();
-  const googleBtnRef = useRef(null);
-  const initialized = useRef(false);
-
-  const handleCredentialResponse = useCallback(
-    (response) => {
-      if (response.credential) {
-        dispatch(loginWithGoogle(response.credential));
-      }
-    },
-    [dispatch]
-  );
+  const buttonRef = useRef(null);
 
   useEffect(() => {
-    if (!window.google?.accounts?.id || initialized.current) return;
+    if (!window.google?.accounts?.id || !buttonRef.current) return;
 
-    window.google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: handleCredentialResponse,
-      auto_select: false,
-      cancel_on_tap_outside: true,
-    });
-
-    if (googleBtnRef.current) {
-      window.google.accounts.id.renderButton(googleBtnRef.current, {
-        type: "standard",
-        size: "large",
-        theme: "outline",
-        text: "signin_with",
-        shape: "rectangular",
-        logo_alignment: "left",
+    if (!isGoogleScriptInitialized) {
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: (response) => {
+          if (response.credential) {
+            dispatch(loginWithGoogle(response.credential));
+          }
+        },
       });
+      isGoogleScriptInitialized = true;
     }
 
-    initialized.current = true;
-  }, [handleCredentialResponse]);
-
-  const handleGoogleClick = () => {
-    const googleButton = googleBtnRef.current?.querySelector("div[role='button']");
-    if (googleButton) {
-      googleButton.click();
-    } else {
-      console.warn("Google button not ready yet");
-    }
-  };
+    window.google.accounts.id.renderButton(buttonRef.current, {
+      type: 'icon',
+      shape: 'circle',
+      size: 'large',
+      theme: 'filled_black',
+    });
+  }, [dispatch]);
 
   return (
-    <>
-      <div
-        ref={googleBtnRef}
-        style={{
-          position: "absolute",
-          left: "-9999px",
-          opacity: 0,
-          pointerEvents: "none",
-        }}
-      />
-
-      <Button
-        fullWidth
-        variant="outlined"
-        startIcon={<GoogleIcon />}
-        onClick={handleGoogleClick}
-        sx={{ textTransform: "none", py: 1 }}
-      >
-        {t("auth.googleButton")}
-      </Button>
-    </>
+    <Box
+      ref={buttonRef}
+      sx={{
+        width: 40,
+        height: 40,
+        mx: 'auto',
+      }}
+    />
   );
 }
+
+export default GoogleLoginButton;
