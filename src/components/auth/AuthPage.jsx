@@ -1,97 +1,165 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Box, Tabs, Tab, Typography, Button, Divider } from "@mui/material";
-import ChangePasswordDialog from "../Header/UserProfile/ChangePassword/ChangePasswordDialog";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
-import { cleanError } from "../../store/slices/authSlice";
-import GoogleLoginButton from "./GoogleLoginButton";
+import {
+  Box,
+  Paper,
+  Stack,
+  TextField,
+  Button,
+  Typography,
+  Alert,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { register, login } from "../../store/slices/authSlice";
 
 function AuthPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.auth);
 
-  const { token } = useSelector((state) => state.auth);
+  const [mode, setMode] = useState("login");
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
 
-  const [tabIndex, setTabIndex] = useState(0);
-  const [isForgotOpen, setIsForgotOpen] = useState(false);
-  const isRegister = tabIndex === 1;
+  const isRegister = mode === "register";
 
-  useEffect(() => {
-    if (token) {
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  }
+
+  async function onSubmit(event) {
+    event.preventDefault();
+
+    if (isRegister) {
+      const registerResult = await dispatch(register(form));
+      if (register.fulfilled.match(registerResult)) {
+        const loginResult = await dispatch(
+          login({ email: form.email, password: form.password }),
+        );
+        if (login.fulfilled.match(loginResult)) {
+          navigate("/");
+        }
+      }
+      return;
+    }
+
+    const loginResult = await dispatch(
+      login({ email: form.email, password: form.password }),
+    );
+    if (login.fulfilled.match(loginResult)) {
       navigate("/");
     }
-  }, [token, navigate]);
-
-  const handleTabChange = (_event, newIndex) => {
-    setTabIndex(newIndex);
-    dispatch(cleanError());
-  };
-
-  const handleGuestLogin = () => {
-    navigate("/");
-  };
+  }
 
   return (
     <Box
       sx={{
-        maxWidth: 400,
-        mx: "auto",
-        my: 4,
-        p: 3,
-        border: "1px solid rgba(0, 0, 0, 0.12)",
-        borderRadius: "12px",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+        minHeight: "calc(100vh - 160px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        px: 2,
+        py: 6,
       }}
     >
-      <Tabs
-        value={tabIndex}
-        onChange={handleTabChange}
-        variant="fullWidth"
-        sx={{ mb: 3 }}
+      <Paper
+        elevation={0}
+        sx={{
+          width: "100%",
+          maxWidth: 400,
+          p: { xs: 3, sm: 4 },
+          border: "1px solid",
+          borderColor: "divider",
+          borderRadius: 3,
+        }}
       >
-        <Tab label={t("auth.loginTab")} />
-        <Tab label={t("auth.registerTab")} />
-      </Tabs>
+        <Stack spacing={1} alignItems="center" sx={{ mb: 3 }}>
+          <Box
+            sx={{
+              width: 56,
+              height: 56,
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              bgcolor: "primary.main",
+              color: "primary.contrastText",
+            }}
+          >
+            <LockOutlinedIcon />
+          </Box>
+          <Typography variant="h5" fontWeight={700}>
+            {isRegister ? t("auth.title") : t("auth.loginTitle")}
+          </Typography>
+        </Stack>
 
-      <Typography variant="h5" align="center" sx={{ mb: 2 }}>
-        {isRegister ? t("auth.registerTitle") : t("auth.loginTitle")}
-      </Typography>
+        <Box component="form" onSubmit={onSubmit}>
+          <Stack spacing={2}>
+            {isRegister && (
+              <TextField
+                fullWidth
+                required
+                name="name"
+                label={t("auth.namePlaceholder")}
+                value={form.name}
+                onChange={handleChange}
+              />
+            )}
 
-      {isRegister ? <RegisterForm /> : <LoginForm />}
+            <TextField
+              fullWidth
+              required
+              type="email"
+              name="email"
+              label={t("auth.emailPlaceholder")}
+              value={form.email}
+              onChange={handleChange}
+            />
 
-      {!isRegister && (
-        <Button
-          variant="text"
-          size="small"
-          onClick={() => setIsForgotOpen(true)}
-          sx={{ mt: 1, textTransform: "none", display: "block", mx: "auto" }}
-        >
-          {t("auth.forgotPassword")}
-        </Button>
-      )}
+            <TextField
+              fullWidth
+              required
+              type="password"
+              name="password"
+              label={t("auth.passwordPlaceholder")}
+              value={form.password}
+              onChange={handleChange}
+            />
 
-      <Divider sx={{ my: 2.5 }}>{t("auth.orDivider")}</Divider>
+            {error && <Alert severity="error">{error}</Alert>}
 
-      <GoogleLoginButton />
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              fullWidth
+              disabled={isFetching}
+              sx={{ mt: 1 }}
+            >
+              {isFetching
+                ? "..."
+                : isRegister
+                  ? t("auth.submitButton")
+                  : t("auth.loginButton")}
+            </Button>
+          </Stack>
+        </Box>
 
-      <Button
-        fullWidth
-        variant="text"
-        onClick={handleGuestLogin}
-        sx={{ mt: 2 }}
-      >
-        {t("auth.guestButton")}
-      </Button>
-
-      <ChangePasswordDialog
-        open={isForgotOpen}
-        onClose={() => setIsForgotOpen(false)}
-        initialStep="code"
-      />
+        <Stack alignItems="center" sx={{ mt: 2.5 }}>
+          <Button
+            type="button"
+            variant="text"
+            size="small"
+            onClick={() => setMode(isRegister ? "login" : "register")}
+            sx={{ textTransform: "none" }}
+          >
+            {isRegister ? t("auth.switchToLogin") : t("auth.switchToRegister")}
+          </Button>
+        </Stack>
+      </Paper>
     </Box>
   );
 }

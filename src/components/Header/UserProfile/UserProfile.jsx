@@ -20,16 +20,9 @@ function UserProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, token, loading } = useSelector((state) => state.auth);
+  const { user, token, isFetching } = useSelector((state) => state.auth);
 
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    middleName: '',
-    phone: '',
-  });
-
-  const [avatar, setAvatar] = useState('');
+  const [name, setName] = useState('');
   const [successMsg, setSuccessMsg] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
@@ -41,43 +34,15 @@ function UserProfile() {
 
   useEffect(() => {
     if (user) {
-      setFormData({
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
-        middleName: user.middleName || '',
-        phone: user.phone || '',
-      });
-      setAvatar(user.avatar || '');
+      setName(user.name || '');
     }
   }, [user]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setAvatar(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
 
   const handleSave = async (e) => {
     e.preventDefault();
     if (!user) return;
 
-    const res = await dispatch(
-      updateUser({
-        id: user.id,
-        ...formData,
-        avatar,
-      }),
-    );
+    const res = await dispatch(updateUser({ name, email: user.email }));
 
     if (!res.error) {
       setSuccessMsg(true);
@@ -112,22 +77,9 @@ function UserProfile() {
       )}
 
       <Stack spacing={1.5} sx={{ alignItems: 'center', mb: 3 }}>
-        <Avatar
-          src={avatar}
-          alt={formData.firstName || 'User'}
-          sx={{ width: 80, height: 80 }}
-        >
-          {formData.firstName ? formData.firstName[0].toUpperCase() : null}
+        <Avatar alt={name || 'User'} sx={{ width: 80, height: 80 }}>
+          {name ? name[0].toUpperCase() : null}
         </Avatar>
-        <Button variant="outlined" size="small" component="label">
-          {t('auth.choosePhoto')}
-          <input
-            type="file"
-            hidden
-            accept="image/*"
-            onChange={handleAvatarChange}
-          />
-        </Button>
       </Stack>
 
       <Box component="form" onSubmit={handleSave}>
@@ -143,36 +95,10 @@ function UserProfile() {
           <TextField
             fullWidth
             required
-            label={t('auth.firstName')}
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-
-          <TextField
-            fullWidth
-            required
-            label={t('auth.lastName')}
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-
-          <TextField
-            fullWidth
-            label={t('auth.middleName')}
-            name="middleName"
-            value={formData.middleName}
-            onChange={handleChange}
-          />
-
-          <TextField
-            fullWidth
-            label={t('auth.phone')}
-            name="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={handleChange}
+            label={t('auth.namePlaceholder')}
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
 
           <Button
@@ -180,9 +106,9 @@ function UserProfile() {
             variant="contained"
             size="large"
             fullWidth
-            disabled={loading}
+            disabled={isFetching}
           >
-            {loading ? '...' : t('profile.saveButton')}
+            {isFetching ? '...' : t('profile.saveButton')}
           </Button>
 
           <Button

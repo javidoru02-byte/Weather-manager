@@ -1,0 +1,14 @@
+.authError {
+  color: #d32f2f;
+  font-size: 0.875rem;
+  margin: 4px 0;
+}
+
+.authSwitchMode {
+  background: none;
+  border: none;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 12px;
+}

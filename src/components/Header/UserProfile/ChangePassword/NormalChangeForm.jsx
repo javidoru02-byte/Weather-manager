@@ -2,17 +2,9 @@ import { Alert, Box, Button, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import {
-  changePassword,
-  sendResetCode,
-} from '../../../../store/slices/authSlice';
+import { changePassword } from '../../../../store/slices/authSlice';
 
-export default function NormalChangeForm({
-  user,
-  onSuccess,
-  onForgotPassword,
-  onClose,
-}) {
+export default function NormalChangeForm({ user, onSuccess, onClose }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -37,11 +29,7 @@ export default function NormalChangeForm({
     setError('');
 
     const res = await dispatch(
-      changePassword({
-        id: user.id,
-        currentPassword,
-        newPassword,
-      }),
+      changePassword({ currentPassword, newPassword }),
     );
 
     setLoading(false);
@@ -54,20 +42,6 @@ export default function NormalChangeForm({
       );
     } else {
       onSuccess();
-    }
-  };
-
-  const handleForgotClick = async () => {
-    setLoading(true);
-    setError('');
-
-    const res = await dispatch(sendResetCode({ email: user.email }));
-    setLoading(false);
-
-    if (res.error) {
-      setError(t('auth.errors.serverError'));
-    } else {
-      onForgotPassword();
     }
   };
 
@@ -84,16 +58,6 @@ export default function NormalChangeForm({
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
         />
-
-        <Button
-          variant="text"
-          size="small"
-          onClick={handleForgotClick}
-          disabled={loading}
-          sx={{ alignSelf: 'flex-start', textTransform: 'none', p: 0 }}
-        >
-          {t('auth.forgotPassword')}
-        </Button>
 
         <TextField
           fullWidth

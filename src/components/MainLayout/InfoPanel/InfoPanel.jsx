@@ -1,42 +1,44 @@
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import PlaceRoundedIcon from '@mui/icons-material/PlaceRounded';
+import { useState, useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
-  Divider,
-  IconButton,
   Paper,
   Stack,
-  Tooltip,
   Typography,
-} from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useCitySuggestions } from '../../../hooks/useCitySuggestions';
-import { addFavourite } from '../../../store/slices/favouritesSlice';
+  Divider,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import {
   getWeather,
   getWeatherForFiveDays,
-} from '../../../store/slices/weatherSlice';
+} from "../../../store/slices/weatherSlice";
+import { addFavourite } from "../../../store/slices/favouritesSlice";
+import { useCitySuggestions } from "../../../hooks/useCitySuggestions";
 import {
   formatCityLabel,
   formatTemperature,
-} from '../../../utilits/formatWeather';
-import CitySearch from './CitySearch';
-import WeatherStats from './WeatherStats';
+} from "../../../utilits/formatWeather";
+import CitySearch from "./CitySearch";
+import WeatherStats from "./WeatherStats";
 
 const SEARCH_DEBOUNCE_MS = 1500;
 
 export const Weatherinfo = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [inputValue, setInputValue] = useState('');
-  const [city, setCity] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [lastSelectedLabel, setLastSelectedLabel] = useState(null);
 
   const { weatherData, error } = useSelector((state) => state.weather);
   const favourites = useSelector((state) => state.favouritesList.favourites);
+  const isAuthenticated = Boolean(useSelector((state) => state.auth.token));
   const timezoneOffset = weatherData?.timezone ?? 0;
 
   const isSelectionFresh = inputValue === lastSelectedLabel;
@@ -47,10 +49,9 @@ export const Weatherinfo = () => {
 
   const searchCity = useCallback(
     (query) => {
-      const queryStr = typeof query === 'string' ? query.trim() : query?.name;
+      const queryStr = typeof query === "string" ? query.trim() : query?.name;
       if (!queryStr) return;
 
-      setCity(queryStr);
       dispatch(getWeather(query));
       dispatch(getWeatherForFiveDays(query));
     },
@@ -77,35 +78,39 @@ export const Weatherinfo = () => {
 
   const isFavourite = Boolean(
     weatherData &&
-    favourites.some((favourite) => favourite.id === weatherData.id),
+    favourites.some((favourite) => favourite.city_id === weatherData.id),
   );
 
   const handleAddFavourite = () => {
     if (!weatherData || isFavourite) return;
 
+    if (!isAuthenticated) {
+      navigate("/auth");
+      return;
+    }
+
     dispatch(
       addFavourite({
+        cityId: weatherData.id,
         name: weatherData.name,
-        id: weatherData.id,
-        coord: weatherData.coord,
+        lat: weatherData.coord.lat,
+        lon: weatherData.coord.lon,
       }),
     );
   };
 
   const tempValue = weatherData?.main?.temp;
-  const displayedCityName =
-    weatherData?.name || city || t('search.cityPlaceholder');
 
   return (
     <Paper
       elevation={0}
-      sx={{ p: { xs: 2, sm: 3 }, border: '1px solid', borderColor: 'divider' }}
+      sx={{ p: { xs: 2, sm: 3 }, border: "1px solid", borderColor: "divider" }}
     >
       <Stack spacing={1.5} sx={{ mb: 3 }}>
-        <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-          <PlaceRoundedIcon sx={{ color: 'primary.main' }} fontSize="small" />
+        <Stack direction="row" spacing={1} alignItems="center">
+          <PlaceRoundedIcon sx={{ color: "primary.main" }} fontSize="small" />
           <Typography variant="overline" color="text.secondary">
-            {t('search.weatherStation')}
+            {t("search.weatherStation")}
           </Typography>
         </Stack>
 
@@ -119,28 +124,29 @@ export const Weatherinfo = () => {
         />
       </Stack>
 
-      <Stack direction="row" spacing={2} sx={{ alignItems: 'baseline', mb: 1 }}>
-        <Typography variant="h3" sx={{ fontFamily: 'monospace' }}>
+      <Stack direction="row" spacing={2} alignItems="baseline" sx={{ mb: 1 }}>
+        <Typography variant="h3" sx={{ fontFamily: "monospace" }}>
           {tempValue !== undefined && tempValue !== null
             ? formatTemperature(tempValue)
-            : '--°'}
+            : "--°"}
         </Typography>
 
         <Stack
           direction="row"
           spacing={0.5}
-          sx={{ alignItems: 'center', minWidth: 0 }}
+          alignItems="center"
+          sx={{ minWidth: 0 }}
         >
           <Typography variant="h6" color="text.secondary" noWrap>
-            {displayedCityName}
+            {weatherData?.name || t("search.cityPlaceholder")}
           </Typography>
 
           {weatherData && (
             <Tooltip
               title={
                 isFavourite
-                  ? t('favourites.alreadyAdded')
-                  : t('buttons.addToFavourites')
+                  ? t("favourites.alreadyAdded")
+                  : t("buttons.addToFavourites")
               }
             >
               <span>
@@ -148,8 +154,8 @@ export const Weatherinfo = () => {
                   size="small"
                   onClick={handleAddFavourite}
                   disabled={isFavourite}
-                  aria-label={t('buttons.addToFavourites')}
-                  sx={{ color: isFavourite ? 'text.disabled' : 'primary.main' }}
+                  aria-label={t("buttons.addToFavourites")}
+                  sx={{ color: isFavourite ? "text.disabled" : "primary.main" }}
                 >
                   {isFavourite ? (
                     <FavoriteRoundedIcon fontSize="small" />

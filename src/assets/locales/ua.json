@@ -74,37 +74,15 @@
     }
   },
   "auth": {
-    "googleButton": "Увійти через Google",
-    "loginTab": "Вхід",
-    "registerTab": "Реєстрація",
-    "loginTitle": "Вхід у систему",
-    "registerTitle": "Реєстрація",
-    "firstName": "Ім'я",
-    "lastName": "Прізвище",
-    "middleName": "По батькові (опціонально)",
-    "phone": "Номер телефону (опціонально)",
-    "emailPlaceholder": "Електронна пошта",
-    "passwordPlaceholder": "Пароль",
-    "choosePhoto": "Обрати фото",
-    "submitLogin": "Увійти",
-    "submitRegister": "Зареєструватися",
-    "orDivider": "АБО",
-    "guestButton": "Продовжити як гість",
-    "forgotPassword": "Забули пароль?",
-    "errors": {
-      "invalidCredentials": "Невірний email або пароль",
-      "serverError": "Помилка сервера. Спробуйте пізніше",
-      "emailAlreadyExists": "Користувач з такою поштою вже існує",
-      "sessionExpired": "Сесія застаріла. Увійдіть знову",
-      "updateFailed": "Не вдалося оновити дані",
-      "wrongCurrentPassword": "Невірний поточний пароль",
-      "passwordsMismatch": "Паролі не збігаються",
-      "passwordMinLength": "Новий пароль має бути не менше 6 символів",
-      "userNotFound": "Користувача з такою поштою не знайдено",
-      "invalidCode": "Невірний код підтвердження",
-      "codeExpired": "Час дії коду вичерпано або його не було надіслано",
-      "emailRequired": "Введіть адресу електронної пошти",
-      "codeEmailMismatch": "Код було надіслано на іншу пошту"
-    }
-  }
+  "title": "Реєстрація",
+  "loginTitle": "Вхід",
+  "namePlaceholder": "Ім'я користувача",
+  "emailPlaceholder": "Електронна пошта",
+  "passwordPlaceholder": "Пароль",
+  "submitButton": "ЗАРЕЄСТРУВАТИСЯ ТА УВІЙТИ",
+  "loginButton": "УВІЙТИ",
+  "switchToLogin": "Вже є акаунт? Увійти",
+  "switchToRegister": "Немає акаунту? Зареєструватись",
+  "logout": "Вийти"
+}
 }

@@ -3,11 +3,11 @@ import { createLogger } from "redux-logger";
 
 import weatherReducer from "./slices/weatherSlice";
 import favouritesSlice from "./slices/favouritesSlice";
-import authSlice, { validateToken } from "./slices/authSlice";
+import authSlice from "./slices/authSlice";
 
 const logger = createLogger();
 
-const store = configureStore({
+export default configureStore({
   reducer: {
     weather: weatherReducer,
     favouritesList: favouritesSlice,
@@ -15,9 +15,3 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
-
-if (localStorage.getItem("token")) {
-  store.dispatch(validateToken());
-}
-
-export default store;

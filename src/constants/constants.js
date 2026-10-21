@@ -6,8 +6,8 @@ export const API_KEY = "b311303329395ed155c66cd18756213e";
 
 export const JSON_URL = "http://localhost:5000";
 
+export const BACKEND_URL = "http://localhost:5000";
+
 export const FAVOURITES_SLICE_NAME = "favourites";
 
-export const AUTH_SLICE_NAME = "users";
-
-export const GOOGLE_CLIENT_ID = "382308994712-96eglc7qduflvsassvcgl19e5adjo2l6.apps.googleusercontent.com";
+export const AUTH_SLICE_NAME = "auth";

@@ -1,38 +1,37 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header/Header';
-import UserProfile from './components/Header/UserProfile/UserProfile';
-import MainLayout from './components/MainLayout/Main/Main';
-import AuthPage from './components/auth/AuthPage';
-import {
-  ProtectedRoute,
-  PublicOnlyRoute,
-} from './components/common/RouteGuards';
-import { getFavourites } from './store/slices/favouritesSlice';
+import Header from "./components/Header/Header/Header";
+import MainLayout from "./components/MainLayout/Main/Main";
+import Footer from "./components/Footer/Footer";
+import AuthPage from "./components/auth/AuthPage";
+import UserProfile from "./components/Header/UserProfile/UserProfile";
+import { getFavourites } from "./store/slices/favouritesSlice";
 
-import './App.css';
+import "./App.css";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#0d162c',
-      light: '#D6C8E1',
-      dark: '#82A2B5',
+      main: "#0d162c",
+      light: "#D6C8E1",
+      dark: "#82A2B5",
     },
   },
 });
 
 function App() {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
-    dispatch(getFavourites());
-  }, [dispatch]);
+    if (token) {
+      dispatch(getFavourites());
+    }
+  }, [dispatch, token]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -42,22 +41,8 @@ function App() {
         <main className="content">
           <Routes>
             <Route path="/" element={<MainLayout />} />
-            <Route
-              path="/auth"
-              element={
-                <PublicOnlyRoute>
-                  <AuthPage />
-                </PublicOnlyRoute>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  <UserProfile />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </main>
         <Footer />

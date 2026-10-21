@@ -25,9 +25,9 @@ function FavouritesMenu({ anchorEl, open, onClose }) {
     onClose();
   };
 
-  const handleDelete = (event, id) => {
+  const handleDelete = (event, cityId) => {
     event.stopPropagation();
-    dispatch(delFavourite(id));
+    dispatch(delFavourite(cityId));
   };
 
   return (
@@ -56,7 +56,7 @@ function FavouritesMenu({ anchorEl, open, onClose }) {
 
       {favourites.map((favourite) => (
         <MenuItem
-          key={favourite.id}
+          key={favourite.city_id}
           onClick={() => handleSelect(favourite)}
           sx={{
             display: "flex",
@@ -85,7 +85,7 @@ function FavouritesMenu({ anchorEl, open, onClose }) {
 
           <IconButton
             size="small"
-            onClick={(event) => handleDelete(event, favourite.id)}
+            onClick={(event) => handleDelete(event, favourite.city_id)}
             title={t("favourites.deleteTooltip")}
             aria-label={t("favourites.deleteTooltip")}
           >
