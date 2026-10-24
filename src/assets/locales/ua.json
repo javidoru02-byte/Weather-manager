@@ -74,15 +74,21 @@
     }
   },
   "auth": {
-  "title": "Реєстрація",
-  "loginTitle": "Вхід",
-  "namePlaceholder": "Ім'я користувача",
-  "emailPlaceholder": "Електронна пошта",
-  "passwordPlaceholder": "Пароль",
-  "submitButton": "ЗАРЕЄСТРУВАТИСЯ ТА УВІЙТИ",
-  "loginButton": "УВІЙТИ",
-  "switchToLogin": "Вже є акаунт? Увійти",
-  "switchToRegister": "Немає акаунту? Зареєструватись",
-  "logout": "Вийти"
-}
+    "title": "Реєстрація",
+    "loginTitle": "Вхід",
+    "namePlaceholder": "Ім'я користувача",
+    "emailPlaceholder": "Електронна пошта",
+    "passwordPlaceholder": "Пароль",
+    "submitButton": "ЗАРЕЄСТРУВАТИСЯ ТА УВІЙТИ",
+    "loginButton": "УВІЙТИ",
+    "switchToLogin": "Вже є акаунт? Увійти",
+    "switchToRegister": "Немає акаунту? Зареєструватись",
+    "logout": "Вийти",
+    "errors": {
+      "passwordMinLength": "Пароль має містити щонайменше 6 символів",
+      "passwordsMismatch": "Паролі не збігаються",
+      "wrongCurrentPassword": "Невірний поточний пароль",
+      "serverError": "Сталася помилка на сервері"
+    }
+  }
 }

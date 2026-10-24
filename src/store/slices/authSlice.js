@@ -1,14 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { AUTH_SLICE_NAME } from "../../constants/constants";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
-  registerRequest,
-  loginRequest,
   changePasswordRequest,
+  loginRequest,
+  registerRequest,
   updateUserRequest,
-} from "../../api/auth";
+} from '../../api/auth';
+import { AUTH_SLICE_NAME } from '../../constants/constants';
 
-const storedToken = localStorage.getItem("token");
-const storedUser = localStorage.getItem("user");
+const storedToken = localStorage.getItem('token');
+const storedUser = localStorage.getItem('user');
 
 const initialState = {
   user: storedUser ? JSON.parse(storedUser) : null,
@@ -72,8 +72,11 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    },
+    clearAuthError: (state) => {
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -100,8 +103,8 @@ const authSlice = createSlice({
         state.error = null;
         state.user = payload.user;
         state.token = payload.token;
-        localStorage.setItem("token", payload.token);
-        localStorage.setItem("user", JSON.stringify(payload.user));
+        localStorage.setItem('token', payload.token);
+        localStorage.setItem('user', JSON.stringify(payload.user));
       })
       .addCase(login.rejected, (state, action) => {
         state.isFetching = false;
@@ -129,7 +132,7 @@ const authSlice = createSlice({
         state.isFetching = false;
         state.error = null;
         state.user = payload;
-        localStorage.setItem("user", JSON.stringify(payload));
+        localStorage.setItem('user', JSON.stringify(payload));
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.isFetching = false;
@@ -138,6 +141,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
-export const logoutUser = logout; 
+export const { logout, clearAuthError } = authSlice.actions;
 export default authSlice.reducer;

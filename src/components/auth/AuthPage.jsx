@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
+  Alert,
   Box,
+  Button,
   Paper,
   Stack,
   TextField,
-  Button,
   Typography,
-  Alert,
-} from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { register, login } from "../../store/slices/authSlice";
+} from '@mui/material';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { clearAuthError, login, register } from '../../store/slices/authSlice';
 
 function AuthPage() {
   const { t } = useTranslation();
@@ -20,10 +20,10 @@ function AuthPage() {
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.auth);
 
-  const [mode, setMode] = useState("login");
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [mode, setMode] = useState('login');
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
 
-  const isRegister = mode === "register";
+  const isRegister = mode === 'register';
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -40,7 +40,7 @@ function AuthPage() {
           login({ email: form.email, password: form.password }),
         );
         if (login.fulfilled.match(loginResult)) {
-          navigate("/");
+          navigate('/');
         }
       }
       return;
@@ -50,17 +50,17 @@ function AuthPage() {
       login({ email: form.email, password: form.password }),
     );
     if (login.fulfilled.match(loginResult)) {
-      navigate("/");
+      navigate('/');
     }
   }
 
   return (
     <Box
       sx={{
-        minHeight: "calc(100vh - 160px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        minHeight: 'calc(100vh - 160px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         px: 2,
         py: 6,
       }}
@@ -68,31 +68,31 @@ function AuthPage() {
       <Paper
         elevation={0}
         sx={{
-          width: "100%",
+          width: '100%',
           maxWidth: 400,
           p: { xs: 3, sm: 4 },
-          border: "1px solid",
-          borderColor: "divider",
+          border: '1px solid',
+          borderColor: 'divider',
           borderRadius: 3,
         }}
       >
-        <Stack spacing={1} alignItems="center" sx={{ mb: 3 }}>
+        <Stack spacing={1} sx={{ alignItems: 'center', mb: 3 }}>
           <Box
             sx={{
               width: 56,
               height: 56,
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              bgcolor: "primary.main",
-              color: "primary.contrastText",
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              bgcolor: 'primary.main',
+              color: 'primary.contrastText',
             }}
           >
             <LockOutlinedIcon />
           </Box>
           <Typography variant="h5" fontWeight={700}>
-            {isRegister ? t("auth.title") : t("auth.loginTitle")}
+            {isRegister ? t('auth.title') : t('auth.loginTitle')}
           </Typography>
         </Stack>
 
@@ -103,7 +103,7 @@ function AuthPage() {
                 fullWidth
                 required
                 name="name"
-                label={t("auth.namePlaceholder")}
+                label={t('auth.namePlaceholder')}
                 value={form.name}
                 onChange={handleChange}
               />
@@ -114,7 +114,7 @@ function AuthPage() {
               required
               type="email"
               name="email"
-              label={t("auth.emailPlaceholder")}
+              label={t('auth.emailPlaceholder')}
               value={form.email}
               onChange={handleChange}
             />
@@ -124,7 +124,7 @@ function AuthPage() {
               required
               type="password"
               name="password"
-              label={t("auth.passwordPlaceholder")}
+              label={t('auth.passwordPlaceholder')}
               value={form.password}
               onChange={handleChange}
             />
@@ -140,23 +140,26 @@ function AuthPage() {
               sx={{ mt: 1 }}
             >
               {isFetching
-                ? "..."
+                ? '...'
                 : isRegister
-                  ? t("auth.submitButton")
-                  : t("auth.loginButton")}
+                  ? t('auth.submitButton')
+                  : t('auth.loginButton')}
             </Button>
           </Stack>
         </Box>
 
-        <Stack alignItems="center" sx={{ mt: 2.5 }}>
+        <Stack sx={{ alignItems: 'center', mt: 2.5 }}>
           <Button
             type="button"
             variant="text"
             size="small"
-            onClick={() => setMode(isRegister ? "login" : "register")}
-            sx={{ textTransform: "none" }}
+            onClick={() => {
+              dispatch(clearAuthError());
+              setMode(isRegister ? 'login' : 'register');
+            }}
+            sx={{ textTransform: 'none' }}
           >
-            {isRegister ? t("auth.switchToLogin") : t("auth.switchToRegister")}
+            {isRegister ? t('auth.switchToLogin') : t('auth.switchToRegister')}
           </Button>
         </Stack>
       </Paper>

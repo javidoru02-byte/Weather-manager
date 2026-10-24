@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ChangePasswordDialog from './ChangePassword/ChangePasswordDialog';
 
-import { logoutUser, updateUser } from '../../../store/slices/authSlice';
+import { logout, updateUser } from '../../../store/slices/authSlice';
 
 function UserProfile() {
   const { t } = useTranslation();
@@ -51,7 +51,7 @@ function UserProfile() {
   };
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logout());
     navigate('/');
   };
 

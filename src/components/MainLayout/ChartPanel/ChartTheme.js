@@ -1,5 +1,5 @@
 
-export const CHART_COLORS = {
+const CHART_COLORS = {
   accent: "#00D1D1",
   textMuted: "rgba(231, 241, 243, 0.72)",
   gridLine: "rgba(231, 241, 243, 0.08)",

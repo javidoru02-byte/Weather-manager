@@ -28,7 +28,7 @@ import WeatherStats from "./WeatherStats";
 
 const SEARCH_DEBOUNCE_MS = 1500;
 
-export const Weatherinfo = () => {
+const Weatherinfo = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -107,7 +107,7 @@ export const Weatherinfo = () => {
       sx={{ p: { xs: 2, sm: 3 }, border: "1px solid", borderColor: "divider" }}
     >
       <Stack spacing={1.5} sx={{ mb: 3 }}>
-        <Stack direction="row" spacing={1} alignItems="center">
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <PlaceRoundedIcon sx={{ color: "primary.main" }} fontSize="small" />
           <Typography variant="overline" color="text.secondary">
             {t("search.weatherStation")}
@@ -124,7 +124,7 @@ export const Weatherinfo = () => {
         />
       </Stack>
 
-      <Stack direction="row" spacing={2} alignItems="baseline" sx={{ mb: 1 }}>
+      <Stack direction="row" spacing={2} sx={{ alignItems:"baseline", mb: 1 }}>
         <Typography variant="h3" sx={{ fontFamily: "monospace" }}>
           {tempValue !== undefined && tempValue !== null
             ? formatTemperature(tempValue)
@@ -134,8 +134,7 @@ export const Weatherinfo = () => {
         <Stack
           direction="row"
           spacing={0.5}
-          alignItems="center"
-          sx={{ minWidth: 0 }}
+          sx={{ alignItems:"center", minWidth: 0 }}
         >
           <Typography variant="h6" color="text.secondary" noWrap>
             {weatherData?.name || t("search.cityPlaceholder")}

@@ -73,16 +73,22 @@
       "demoCodeAlert": "A confirmation email with your code has been sent. Please check your inbox (including the spam folder)."
     }
   },
- "auth": {
-  "title": "Registration",
-  "loginTitle": "Sign In",
-  "namePlaceholder": "Username",
-  "emailPlaceholder": "Email",
-  "passwordPlaceholder": "Password",
-  "submitButton": "REGISTER AND LOG IN",
-  "loginButton": "LOG IN",
-  "switchToLogin": "Already have an account? Log in",
-  "switchToRegister": "Don't have an account? Register",
-  "logout": "Log out"
-}
+  "auth": {
+    "title": "Registration",
+    "loginTitle": "Sign In",
+    "namePlaceholder": "Username",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "submitButton": "REGISTER AND LOG IN",
+    "loginButton": "LOG IN",
+    "switchToLogin": "Already have an account? Log in",
+    "switchToRegister": "Don't have an account? Register",
+    "logout": "Log out",
+    "errors": {
+      "passwordMinLength": "Password must be at least 6 characters",
+      "passwordsMismatch": "Passwords do not match",
+      "wrongCurrentPassword": "Wrong current password",
+      "serverError": "Server error occurred"
+    }
+  }
 }
